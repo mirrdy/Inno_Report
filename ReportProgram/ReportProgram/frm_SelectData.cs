@@ -60,17 +60,81 @@ namespace ReportProgram
             //MessageBox.Show(selectModelCB.Items[3].ToString());
         }
 
+        private bool Check_Table(string table)
+        {
+            // Test_Data 테이블 체크
+            string queryString = "SHOW TABLES LIKE '" + table + "'";
+            OdbcCommand command = new OdbcCommand(queryString);
+            try
+            {
+                using (OdbcConnection connection = new OdbcConnection(conString))
+                {
+                    command.Connection = connection;
+                    connection.Open();
+
+                    OdbcDataReader dr = command.ExecuteReader();
+
+                    dr.Read();
+                    // 테이블 생성시 무조건 Column을 하나 이상 포함해야 하기 때문에 0번이 없으면 해당 테이블이 존재하지 않음
+                    if (dr[0] != DBNull.Value)
+                    {
+                        // Table이 존재함
+                    }
+                    dr.Close();
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                // Table이 없음
+                return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         private void btn_ConfirmSelect_Click(object sender, EventArgs e)
         {
-            string queryString = "select * from Test_Data where ";
+            string queryString = "";
 
             string dateFormat = "yyyy-MM-dd";
-
             string start_Date = dtp_StartDate.Value.ToString(dateFormat);
             string end_Date = dtp_EndDate.Value.AddDays(1).ToString(dateFormat);
 
-            //queryString += "Start_time >= " + start_Date + " and Start_time < " + end_Date;
-            queryString += "Start_time >= '" + start_Date + "' and Start_time < '" + end_Date + "'";
+
+            // Test_Data 테이블이 존재하면 기존것도 조회하고 Test_Data+날짜 테이블도 조회
+            if (Check_Table("Test_Data") == true)
+            {
+                queryString += "select * from Test_Data where ";
+                queryString += "Start_time >= '" + start_Date + "' and Start_time < '" + end_Date + "'";
+            }
+
+
+            for (int i = 0; i < ((dtp_EndDate.Value.Year - dtp_StartDate.Value.Year) * 12) + (dtp_EndDate.Value.Month - dtp_StartDate.Value.Month) + 1; i++)
+            {
+                int tableYear = dtp_StartDate.Value.Year;
+                int tableMonth = dtp_StartDate.Value.Month + i;
+                
+                if (tableMonth > 12)
+                {
+                    tableYear += tableMonth / 12;
+                    tableMonth = tableMonth % 12;
+                }
+
+                string tableName = "Test_Data_" + tableYear.ToString("0000") +"_"+ tableMonth.ToString("00");
+
+                if (Check_Table(tableName) == true)
+                {
+                    if (queryString.Equals("") == false)
+                        queryString += " union all ";
+
+                    queryString += "select * from " + tableName + " where ";
+                    queryString += "Start_time >= '" + start_Date + "' and Start_time < '" + end_Date + "'";
+                }
+            }
 
             if (rdb_NoSel.Checked)
             {

@@ -27,7 +27,6 @@ static class Const
     public const int SELECT = 0;
     public const int DELETE = 1;
 
-
     // 아스키 코드
     public const string END_CRLF = "\r\n";
     public const string END_CR = "\r";
@@ -36,9 +35,15 @@ static class Const
     public const byte EOT = 0x04;
     public const byte SYN = 0x16;
 
-    // 스케너 타입
-    public const int SCANNER_NEWLAND = 0;
-    public const int SCANNER_HONEYWELL = 1;
+    // 데이터 헤더
+    public const int HEADER_NUMBER = 0;
+    public const int HEADER_MODEL = 1;
+    public const int HEADER_TESTER = 2;
+    public const int HEADER_START_TIME = 3;
+    public const int HEADER_END_TIME = 4;
+    public const int HEADER_SERIAL_NUMBER = 5;
+    public const int HEADER_BARCODE = 6;
+    public const int HEADER_TOTAL_RESULT = 7;
 
     // Timer
     [DllImport("winmm.dll")]

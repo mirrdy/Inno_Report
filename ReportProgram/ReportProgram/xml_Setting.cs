@@ -33,6 +33,8 @@ namespace ReportProgram
         public int[] HeaderWidth = new int[8];
         public string[] HeaderName = { "Number", "Model", "Tester", "Start_time", "End_time", "Serial_number", "Barcode", "Total_result" };
 
+        public string LogPath;
+
         public xml_Setting()
         {
             Setting_Init();
@@ -60,6 +62,7 @@ namespace ReportProgram
                 HeaderDisplay[i] = true;
                 HeaderWidth[i] = 70;
             }
+            LogPath = @"D:\";
         }
         public void Setting_Save_Xml(string FilePath)
         {
@@ -129,6 +132,11 @@ namespace ReportProgram
                 el_HeaderName.InnerText = HeaderName[i];
                 xmlSetting.AppendChild(el_HeaderName);
             }
+
+            // 검사결과 저장 경로
+            XmlElement el_LogPath = doc.CreateElement("LogPath");
+            el_LogPath.InnerText = LogPath;
+            xmlSetting.AppendChild(el_LogPath);
 
             // 최상위 헤더를 문서에 넣음
             doc.AppendChild(xmlSetting);
@@ -219,6 +227,13 @@ namespace ReportProgram
                 {
                     HeaderName[i] = node_HeaderName.InnerText;
                 }
+            }
+
+            // 검사결과 저장 경로
+            XmlNode node_LogPath = doc.SelectSingleNode("//Setting/LogPath");
+            if(node_LogPath != null)
+            {
+                LogPath = node_LogPath.InnerText;
             }
         }
     }

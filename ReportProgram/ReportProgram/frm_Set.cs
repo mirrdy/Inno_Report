@@ -55,6 +55,7 @@ namespace ReportProgram
             {
                 dgv_BasicDisplay.Rows.Add(mySetting.HeaderDisplay[i], mySetting.HeaderWidth[i], mySetting.HeaderName[i]);
             }
+            lbl_LogPath.Text = mySetting.LogPath;
         }
 
         private void btn_Apply_Click(object sender, EventArgs e)
@@ -102,7 +103,11 @@ namespace ReportProgram
 
                 saveFile.Close();*/
             #endregion
-
+            SaveMySetting(Const.SETTING_FILE_PATH);
+            
+        }
+        private void SaveMySetting(string path)
+        {
             mySetting.Location_X = myConvert.StrToIntDef(tbx_Location_X.Text, 0);
             mySetting.Location_Y = myConvert.StrToIntDef(tbx_Location_Y.Text, 0);
             mySetting.Size_W = myConvert.StrToIntDef(tbx_Size_W.Text, 0);
@@ -127,6 +132,7 @@ namespace ReportProgram
                 mySetting.HeaderName[i] = dgv_BasicDisplay.Rows[i].Cells[2].Value.ToString();
             }
 
+            mySetting.LogPath = lbl_LogPath.Text;
             mySetting.Setting_Save_Xml(Const.SETTING_FILE_PATH);
             MessageBox.Show("저장 완료!");
         }
@@ -155,6 +161,24 @@ namespace ReportProgram
             {
                 dgv_JobOrder_File_List.CurrentRow.Cells[1].Value = "";
             }
+        }
+
+        private void btn_ChoiceLogPath_Click(object sender, EventArgs e)
+        {
+            if(fdbr_LogPath.ShowDialog() == DialogResult.OK)
+            {
+                lbl_LogPath.Text = fdbr_LogPath.SelectedPath;
+            }
+            
+            /*odlg_Model.Filter = "Model File (*.spc) | *.spc";
+
+            if (odlg_Model.ShowDialog() == DialogResult.OK)
+            {
+                Const.OpenFileName = odlg_Model.FileName;
+                mySystem.OpenModelPath_Save_Xml(Const.OpenFileName);
+                DisplaySpec(Const.OpenFileName);
+                InitDisplayData();
+            }*/
         }
     }
 }

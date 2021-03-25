@@ -39,6 +39,7 @@
             this.btn_JobOrder = new System.Windows.Forms.Button();
             this.panel2 = new System.Windows.Forms.Panel();
             this.pnl_Center = new System.Windows.Forms.Panel();
+            this.tmr_Main = new System.Windows.Forms.Timer(this.components);
             this.panel1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -167,6 +168,11 @@
             this.pnl_Center.Size = new System.Drawing.Size(1227, 716);
             this.pnl_Center.TabIndex = 8;
             // 
+            // tmr_Main
+            // 
+            this.tmr_Main.Interval = 5000;
+            this.tmr_Main.Tick += new System.EventHandler(this.tmr_Main_Tick);
+            // 
             // frm_Main
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -199,6 +205,7 @@
         private System.Windows.Forms.Panel pnl_Center;
         private System.Windows.Forms.Button btn_JobOrder;
         private System.Windows.Forms.Label lbl_Title;
+        private System.Windows.Forms.Timer tmr_Main;
     }
 }
 

@@ -68,6 +68,9 @@
             this.Column1 = new System.Windows.Forms.DataGridViewCheckBoxColumn();
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.fdbr_LogPath = new System.Windows.Forms.FolderBrowserDialog();
+            this.btn_ChoiceLogPath = new DevExpress.XtraEditors.SimpleButton();
+            this.lbl_LogPath = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_JobOrder_File_List)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -453,12 +456,45 @@
             this.Column3.Name = "Column3";
             this.Column3.Width = 140;
             // 
+            // btn_ChoiceLogPath
+            // 
+            this.btn_ChoiceLogPath.Appearance.Font = new System.Drawing.Font("맑은 고딕", 10F, System.Drawing.FontStyle.Bold);
+            this.btn_ChoiceLogPath.Appearance.GradientMode = System.Drawing.Drawing2D.LinearGradientMode.Vertical;
+            this.btn_ChoiceLogPath.Appearance.Options.UseFont = true;
+            this.btn_ChoiceLogPath.Appearance.Options.UseTextOptions = true;
+            this.btn_ChoiceLogPath.Appearance.TextOptions.HAlignment = DevExpress.Utils.HorzAlignment.Center;
+            this.btn_ChoiceLogPath.Appearance.TextOptions.VAlignment = DevExpress.Utils.VertAlignment.Center;
+            this.btn_ChoiceLogPath.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
+            this.btn_ChoiceLogPath.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.TopCenter;
+            this.btn_ChoiceLogPath.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btn_ChoiceLogPath.ImageOptions.SvgImage")));
+            this.btn_ChoiceLogPath.Location = new System.Drawing.Point(498, 533);
+            this.btn_ChoiceLogPath.Name = "btn_ChoiceLogPath";
+            this.btn_ChoiceLogPath.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
+            this.btn_ChoiceLogPath.Size = new System.Drawing.Size(174, 41);
+            this.btn_ChoiceLogPath.TabIndex = 20;
+            this.btn_ChoiceLogPath.Text = "로그파일 위치 선택";
+            this.btn_ChoiceLogPath.Click += new System.EventHandler(this.btn_ChoiceLogPath_Click);
+            // 
+            // lbl_LogPath
+            // 
+            this.lbl_LogPath.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
+            this.lbl_LogPath.Font = new System.Drawing.Font("맑은 고딕", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lbl_LogPath.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(158)))), ((int)(((byte)(50)))));
+            this.lbl_LogPath.Location = new System.Drawing.Point(12, 530);
+            this.lbl_LogPath.Name = "lbl_LogPath";
+            this.lbl_LogPath.Size = new System.Drawing.Size(480, 44);
+            this.lbl_LogPath.TabIndex = 21;
+            this.lbl_LogPath.Text = "D:\\";
+            this.lbl_LogPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // frm_Set
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
             this.ClientSize = new System.Drawing.Size(1421, 594);
+            this.Controls.Add(this.lbl_LogPath);
+            this.Controls.Add(this.btn_ChoiceLogPath);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -517,5 +553,8 @@
         private System.Windows.Forms.DataGridViewCheckBoxColumn Column1;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column2;
         private System.Windows.Forms.DataGridViewTextBoxColumn Column3;
+        private System.Windows.Forms.FolderBrowserDialog fdbr_LogPath;
+        private DevExpress.XtraEditors.SimpleButton btn_ChoiceLogPath;
+        private System.Windows.Forms.Label lbl_LogPath;
     }
 }

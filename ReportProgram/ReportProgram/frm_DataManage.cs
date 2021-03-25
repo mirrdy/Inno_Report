@@ -112,28 +112,28 @@ namespace ReportProgram
 
                 switch (i)
                 {
-                    case 0:
+                    case Const.HEADER_NUMBER:
                         selectedDataView.Columns.Add("Number", mySetting.HeaderName[i]);
                         break;
-                    case 1:
+                    case Const.HEADER_MODEL:
                         selectedDataView.Columns.Add("Model", mySetting.HeaderName[i]);
                         break;
-                    case 2:
+                    case Const.HEADER_TESTER:
                         selectedDataView.Columns.Add("Tester", mySetting.HeaderName[i]);
                         break;
-                    case 3:
+                    case Const.HEADER_START_TIME:
                         selectedDataView.Columns.Add("Start_time", mySetting.HeaderName[i]);
                         break;
-                    case 4:
+                    case Const.HEADER_END_TIME:
                         selectedDataView.Columns.Add("End_time", mySetting.HeaderName[i]);
                         break;
-                    case 5:
+                    case Const.HEADER_SERIAL_NUMBER:
                         selectedDataView.Columns.Add("Serial_number", mySetting.HeaderName[i]);
                         break;
-                    case 6:
+                    case Const.HEADER_BARCODE:
                         selectedDataView.Columns.Add("Barcode", mySetting.HeaderName[i]);
                         break;
-                    case 7:
+                    case Const.HEADER_TOTAL_RESULT:
                         selectedDataView.Columns.Add("Total_result", mySetting.HeaderName[i]);
                         break;
                 }
@@ -512,7 +512,8 @@ namespace ReportProgram
             return row;
         }
 
-        private ICell GetCell(IRow row, int cellnum)        {
+        private ICell GetCell(IRow row, int cellnum)        
+        {
             var cell = row.GetCell(cellnum);
             if(cell==null)
             {

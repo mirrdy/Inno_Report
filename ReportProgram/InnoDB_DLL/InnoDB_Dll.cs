@@ -26,7 +26,7 @@ namespace InnoDB_DLL
             ER_Delete_TestData = 5,
             ER_NOT_FIND_MODEL_TABLE = 6,
             ER_NOT_FIND_TESTDATA_TABLE = 7,
-            ER_Ect = 9999
+            ER_Etc = 9999
         }
 
         private string DSN_Name = "";
@@ -40,7 +40,9 @@ namespace InnoDB_DLL
 
         public ErrorCode Open_DB(string Name)
         {
-            ErrorCode R_Code = ErrorCode.ER_Ect;
+            ErrorCode R_Code = ErrorCode.ER_Etc;
+
+            TableName_TestData = "Test_Data_" + DateTime.Now.ToString("yyyy_MM");
 
             DSN_Name = "dsn=" + Name;
 
@@ -61,12 +63,8 @@ namespace InnoDB_DLL
                         TableList.Add(dr[0].ToString());
                     }
                 }
-
+                
                 R_Code = ErrorCode.Suecces;
-                int tmpindex = TableList.FindIndex(x => x.CompareTo(TableName_Model) == 0);
-                if (tmpindex == -1) R_Code = ErrorCode.ER_NOT_FIND_MODEL_TABLE;
-                tmpindex = TableList.FindIndex(x => x.CompareTo(TableName_TestData) == 0);
-                if (tmpindex == -1) R_Code = ErrorCode.ER_NOT_FIND_TESTDATA_TABLE;
             }
             catch (Exception ex)
             {
@@ -88,7 +86,7 @@ namespace InnoDB_DLL
 
         public ErrorCode Add_Model(string Model_Name, DateTime Update_Date, string Update_User, string Data_Header)
         {
-            ErrorCode R_Code = ErrorCode.ER_Ect;
+            ErrorCode R_Code = ErrorCode.ER_Etc;
 
             string tmpCreateDate = Update_Date.ToString("yyyy-MM-dd HH:mm:ss");
             string tmpValue = string.Format("'{0}','{1}','{2}','{3}'", Model_Name, tmpCreateDate, Update_User, Data_Header);
@@ -117,7 +115,7 @@ namespace InnoDB_DLL
 
         public ErrorCode Delete_Model(string Model_Name)
         {
-            ErrorCode R_Code = ErrorCode.ER_Ect;
+            ErrorCode R_Code = ErrorCode.ER_Etc;
 
             string queryString = "DELETE FROM "+ TableName_Model + " WHERE name='" + Model_Name + "'";
 
@@ -172,15 +170,87 @@ namespace InnoDB_DLL
 
             return ModelList;
         }
+        private ErrorCode Check_Table(DateTime date)
+        {
+            ErrorCode R_Code = ErrorCode.ER_Etc;
+            TableName_TestData = "Test_Data_" + date.ToString("yyyy_MM");
+            
+            // Test_Data 테이블 체크
+            string queryString = "SHOW TABLES LIKE '"+ TableName_TestData + "'";
+            OdbcCommand command = new OdbcCommand(queryString);
+            try
+            {
+                using (OdbcConnection connection = new OdbcConnection(DSN_Name))
+                {
+                    command.Connection = connection;
+                    connection.Open();
+
+                    OdbcDataReader dr = command.ExecuteReader();
+
+                    dr.Read();
+                    // 테이블 생성시 무조건 Column을 하나 이상 포함해야 하기 때문에 0번이 없으면 해당 테이블이 존재하지 않음
+                    if (dr[0] != DBNull.Value)
+                    {
+                        // Table이 존재함
+                    }
+                    dr.Close();
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                // Table이 없음
+                Create_Table(TableName_TestData);
+            }
+            catch (Exception e)
+            {
+                R_Code = ErrorCode.ER_Con;
+                ErrorMessage = e.Message;
+            }
+
+            return R_Code;
+        }
+
+        private ErrorCode Create_Table(string tableName)
+        {
+            ErrorCode R_Code = ErrorCode.ER_Etc;
+
+            string queryString = "CREATE TABLE `" + tableName + "`(" +
+                    "`No` INT(10) NOT NULL AUTO_INCREMENT," +
+                    "`Model_name` VARCHAR(1024) NOT NULL," +
+                    "`Test_user` VARCHAR(32) NULL DEFAULT NULL," +
+                    "`Start_time` VARCHAR(128) NULL DEFAULT NULL," +
+                    "`End_time` VARCHAR(128) NULL DEFAULT NULL," +
+                    "`Serial_number` VARCHAR(2048) NULL DEFAULT NULL," +
+                    "`Barcode` VARCHAR(2048) NULL DEFAULT NULL," +
+                    "`Total_result` VARCHAR(32) NULL DEFAULT NULL," +
+                    "`Insert_Flag` BIT NULL DEFAULT NULL," +
+                    "`Test_Data` TEXT NULL DEFAULT NULL," +
+                    "PRIMARY KEY(`No`)" +
+                ")" +
+                "COLLATE = 'utf8_general_ci';";
+
+            OdbcCommand command = new OdbcCommand(queryString);
+
+            using (OdbcConnection connection = new OdbcConnection(DSN_Name))
+            {
+                command.Connection = connection;
+                connection.Open();
+                command.ExecuteNonQuery();
+            }
+
+            return R_Code;
+        }
 
         public ErrorCode Add_TestData(string Model_Name, string Test_User, DateTime Start_Time, DateTime End_Time, string Serial_Number, string BarcodeData, string Total_Result, string Test_Data)
         {
-            ErrorCode R_Code = ErrorCode.ER_Ect;
+            ErrorCode R_Code = ErrorCode.ER_Etc;
+
+            Check_Table(Start_Time);
 
             string tmpStartTime = Start_Time.ToString("yyyy-MM-dd HH:mm:ss");
             string tmpEndTime = End_Time.ToString("yyyy-MM-dd HH:mm:ss");
-            string tmpValue = string.Format("'{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}'", Model_Name, Test_User, tmpStartTime, tmpEndTime, Serial_Number, BarcodeData, Total_Result, Test_Data);
-            string queryString = "INSERT INTO " + TableName_TestData + " (model_name, test_user, start_time, end_time, serial_number, barcode, total_result, test_Data) Values(" + tmpValue + ")";
+            string tmpValue = string.Format("'{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}'", Model_Name, Test_User, tmpStartTime, tmpEndTime, Serial_Number, BarcodeData, Total_Result, 1, Test_Data);
+            string queryString = "INSERT INTO " + TableName_TestData + " (model_name, test_user, start_time, end_time, serial_number, barcode, total_result, Insert_Flag, test_Data) Values(" + tmpValue + ")";
 
             OdbcCommand command = new OdbcCommand(queryString);
             try
@@ -205,10 +275,12 @@ namespace InnoDB_DLL
 
         public ErrorCode Add_TestData(string Model_Name, string Test_User, string Start_Time, string End_Time, string Serial_Number, string BarcodeData, string Total_Result, string Test_Data)
         {
-            ErrorCode R_Code = ErrorCode.ER_Ect;
+            ErrorCode R_Code = ErrorCode.ER_Etc;
 
-            string tmpValue = string.Format("'{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}'", Model_Name, Test_User, Start_Time, End_Time, Serial_Number, BarcodeData, Total_Result, Test_Data);
-            string queryString = "INSERT INTO " + TableName_TestData + " (model_name, test_user, start_time, end_time, serial_number, barcode, total_result, test_Data) Values(" + tmpValue + ")";
+            Check_Table(DateTime.Parse(Start_Time));
+
+            string tmpValue = string.Format("'{0}','{1}','{2}','{3}','{4}','{5}','{6}','{7}','{8}'", Model_Name, Test_User, Start_Time, End_Time, Serial_Number, BarcodeData, Total_Result, 1, Test_Data);
+            string queryString = "INSERT INTO " + TableName_TestData + " (model_name, test_user, start_time, end_time, serial_number, barcode, total_result, Insert_Flag, test_Data) Values(" + tmpValue + ")";
 
             OdbcCommand command = new OdbcCommand(queryString);
             try
@@ -234,7 +306,7 @@ namespace InnoDB_DLL
 
         public ErrorCode Delete_TestData_by_model_name(string Model_Name)
         {
-            ErrorCode R_Code = ErrorCode.ER_Ect;
+            ErrorCode R_Code = ErrorCode.ER_Etc;
 
             string queryString = "DELETE FROM " + TableName_TestData + " where model_name='" + Model_Name + "'";
 
@@ -261,7 +333,7 @@ namespace InnoDB_DLL
 
         public ErrorCode Delete_TestData_by_barcode(string Barcode)
         {
-            ErrorCode R_Code = ErrorCode.ER_Ect;
+            ErrorCode R_Code = ErrorCode.ER_Etc;
 
             string queryString = "DELETE FROM " + TableName_TestData + " where barcode='" + Barcode + "'";
 
@@ -288,7 +360,7 @@ namespace InnoDB_DLL
 
         public ErrorCode Delete_TestData_by_serial_number(string SerialNumber)
         {
-            ErrorCode R_Code = ErrorCode.ER_Ect;
+            ErrorCode R_Code = ErrorCode.ER_Etc;
 
             string queryString = "DELETE FROM " + TableName_TestData + " where serial_number='" + SerialNumber + "'";
 

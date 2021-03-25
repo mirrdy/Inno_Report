@@ -11,3 +11,16 @@ D:\FirstRepository\ReportProgram\TestDLL\obj\Debug\TestDLL.exe
 D:\FirstRepository\ReportProgram\TestDLL\obj\Debug\TestDLL.pdb
 D:\FirstRepository\ReportProgram\TestDLL\obj\Debug\TestDLL.Form1.resources
 D:\FirstRepository\ReportProgram\TestDLL\obj\Debug\TestDLL.csproj.CoreCompileInputs.cache
+D:\Inno_Report\ReportProgram\TestDLL\bin\Debug\TestDLL.exe.config
+D:\Inno_Report\ReportProgram\TestDLL\bin\Debug\TestDLL.exe
+D:\Inno_Report\ReportProgram\TestDLL\bin\Debug\TestDLL.pdb
+D:\Inno_Report\ReportProgram\TestDLL\bin\Debug\InnoDB_DLL.dll
+D:\Inno_Report\ReportProgram\TestDLL\bin\Debug\InnoDB_DLL.pdb
+D:\Inno_Report\ReportProgram\TestDLL\obj\Debug\TestDLL.csprojAssemblyReference.cache
+D:\Inno_Report\ReportProgram\TestDLL\obj\Debug\TestDLL.Form1.resources
+D:\Inno_Report\ReportProgram\TestDLL\obj\Debug\TestDLL.Properties.Resources.resources
+D:\Inno_Report\ReportProgram\TestDLL\obj\Debug\TestDLL.csproj.GenerateResource.cache
+D:\Inno_Report\ReportProgram\TestDLL\obj\Debug\TestDLL.csproj.CoreCompileInputs.cache
+D:\Inno_Report\ReportProgram\TestDLL\obj\Debug\TestDLL.csproj.CopyComplete
+D:\Inno_Report\ReportProgram\TestDLL\obj\Debug\TestDLL.exe
+D:\Inno_Report\ReportProgram\TestDLL\obj\Debug\TestDLL.pdb
