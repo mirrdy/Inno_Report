@@ -15,6 +15,7 @@ using System.Globalization;
 using System.Diagnostics;
 using NPOI.SS.Formula.Functions;
 using System.Drawing;
+using System.Reflection;
 
 namespace ReportProgram
 {
@@ -56,14 +57,38 @@ namespace ReportProgram
                 {
                     List<string> readRow = new List<string>();
 
-                    readRow.Add(tmpCount++.ToString());
-                    readRow.Add(dr["Model_name"].ToString());
-                    readRow.Add(dr["Test_user"].ToString());
-                    readRow.Add(dr["Start_time"].ToString());
-                    readRow.Add(dr["End_time"].ToString());
-                    //readRow.Add(dr["Serial_number"].ToString());
-                    readRow.Add(dr["Barcode"].ToString());
-                    readRow.Add(dr["Total_result"].ToString());
+                    for (int i = 0; i < 8; i++)
+                    {
+                        if (mySetting.HeaderDisplay[i] == false) continue;
+
+                        switch (i)
+                        {
+                            case Const.HEADER_NUMBER:
+                                readRow.Add(tmpCount++.ToString());
+                                break;
+                            case Const.HEADER_MODEL:
+                                readRow.Add(dr["Model_name"].ToString());
+                                break;
+                            case Const.HEADER_TESTER:
+                                readRow.Add(dr["Test_user"].ToString());
+                                break;
+                            case Const.HEADER_START_TIME:
+                                readRow.Add(dr["Start_time"].ToString());
+                                break;
+                            case Const.HEADER_END_TIME:
+                                readRow.Add(dr["End_time"].ToString());
+                                break;
+                            case Const.HEADER_SERIAL_NUMBER:
+                                readRow.Add(dr["Serial_number"].ToString());
+                                break;
+                            case Const.HEADER_BARCODE:
+                                readRow.Add(dr["Barcode"].ToString());
+                                break;
+                            case Const.HEADER_TOTAL_RESULT:
+                                readRow.Add(dr["Total_result"].ToString());
+                                break;
+                        }
+                    }
 
                     if (selModel == "")
                     {
@@ -79,7 +104,18 @@ namespace ReportProgram
                             if (parsedStr.Equals(""))
                                 readRow.Add("-");
                             else
-                                readRow.Add(parsedStr);
+                            {
+                                string[] parsedDetail = parsedStr.Split(',');
+                                foreach(string detailStr in parsedDetail)
+                                {
+                                    readRow.Add(detailStr);
+                                    if(parsedDetail.Length <= 1)
+                                    {
+                                        readRow.Add("-");
+                                        readRow.Add("-");
+                                    }
+                                }
+                            }
                         }
                     }
                     selectedDataView.Rows.Add(readRow.ToArray());
@@ -97,16 +133,19 @@ namespace ReportProgram
                 if (row.IsNewRow)
                     continue;
                 row.HeaderCell.Value = rowNumber.ToString();
-                rowNumber = rowNumber + 1;
+                rowNumber++;
             }
             /*selectedDataView.AutoResizeRowHeadersWidth(DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders);
             selectedDataView.AutoResizeColumns();
             selectedDataView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);*/
+
+            
         }
 
         private void create_SelectedDgv(string ConnectionString, string model_name)
         {
-            for(int i=0; i<8; i++)
+            selectedDataView.DoubleBuffered(true);
+            for (int i=0; i<8; i++)
             {
                 if (mySetting.HeaderDisplay[i] == false) continue;
 
@@ -174,7 +213,11 @@ namespace ReportProgram
                         else if (dataHeader[i].Equals(""))
                             break;
                         else
+                        {
                             parsingData.Add(dataHeader[i]);
+                            parsingData.Add("단위");
+                            parsingData.Add("결과");
+                        }
                     }
                 }
                 foreach (string parsingStr in parsingData)
@@ -591,6 +634,16 @@ namespace ReportProgram
         private void btn_DetailData_Click(object sender, EventArgs e)
         {
             new frm_DetailData(selectedDataView).ShowDialog();
+        }
+    }
+    public static class ExtensionMethods
+    {
+        public static void DoubleBuffered(this DataGridView dgv, bool setting)
+        {
+            Type dgvType = dgv.GetType();
+            PropertyInfo pi = dgvType.GetProperty("DoubleBuffered",
+                BindingFlags.Instance | BindingFlags.NonPublic);
+            pi.SetValue(dgv, setting, null);
         }
     }
 }

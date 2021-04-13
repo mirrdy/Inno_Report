@@ -109,7 +109,9 @@ namespace ReportProgram
             if (Check_Table("Test_Data") == true)
             {
                 queryString += "select * from Test_Data where ";
-                queryString += "Start_time >= '" + start_Date + "' and Start_time < '" + end_Date + "'";
+                queryString += "Start_time >= '" + start_Date + "' and Start_time < '" + end_Date + "' ";
+                if (cbx_SelModel.Text != "")
+                    queryString += "and model_name='" + cbx_SelModel.Text + "' ";
             }
 
 
@@ -129,30 +131,30 @@ namespace ReportProgram
                 if (Check_Table(tableName) == true)
                 {
                     if (queryString.Equals("") == false)
-                        queryString += " union all ";
+                        queryString += "union all ";
 
                     queryString += "select * from " + tableName + " where ";
-                    queryString += "Start_time >= '" + start_Date + "' and Start_time < '" + end_Date + "'";
+                    queryString += "Start_time >= '" + start_Date + "' and Start_time < '" + end_Date + "' ";
+
+                    if (rdb_NoSel.Checked)
+                    {
+
+                    }
+                    else if (rdb_SelOk.Checked)
+                    {
+                        queryString += "and Total_result='양품' ";
+                    }
+                    else
+                    {
+                        queryString += "and Total_result='불량' ";
+                    }
+
+                    if (cbx_SelModel.Text != "")
+                        queryString += "and model_name='" + cbx_SelModel.Text + "' ";
+
+                    queryString += "order by Start_time asc, End_time asc "; // 은성 수정사항
                 }
             }
-
-            if (rdb_NoSel.Checked)
-            {
-
-            }
-            else if (rdb_SelOk.Checked)
-            {
-                queryString += "and Total_result='양품'";
-            }
-            else
-            {
-                queryString += "and Total_result='불량'";
-            }
-
-            if (cbx_SelModel.Text != "")
-                queryString += "and model_name='" + cbx_SelModel.Text + "'";
-
-            queryString += "order by Start_time asc, End_time asc"; // 은성 수정사항
 
             this.sendData(queryString, cbx_SelModel.Text);
         }
