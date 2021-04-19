@@ -120,7 +120,7 @@ namespace ReportProgram
                     }
                     selectedDataView.Rows.Add(readRow.ToArray());
                     if (readRow[6].Equals("양품")) selectedDataView[6, selectedDataView.Rows.Count - 1].Style.BackColor = Color.Lime;
-                    //else if (readRow[6].Equals("불량")) selectedDataView[6, selectedDataView.Rows.Count - 1].Style.BackColor = Color.Red;
+                    else if (readRow[6].Equals("불량")) selectedDataView[6, selectedDataView.Rows.Count - 1].Style.BackColor = Color.Red;
                 }
             }
             selectedDataView.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("맑은 고딕", 10, FontStyle.Bold);
@@ -597,37 +597,65 @@ namespace ReportProgram
                     return;
                 }
 
-                string tmpStartTime;
-
-                DataGridView tmpDgv = (sender as DataGridView);
-                try
-                {
-                    tmpStartTime = tmpDgv.CurrentRow.Cells[tmpDgv.Columns["Start_time"].Index].Value.ToString();
-                }
-                catch (Exception exp)
-                {
-                    MessageBox.Show("시작 시간이 미표기상태입니다.");
-                    return;
-                }
-
-                string queryString = "delete from Test_Data where ";
-                queryString += "Start_time = '" + tmpStartTime + "'";
-
                 string tmpDSN = "dsn=" + mySetting.Info_DBConnection;
+
+                string queryString =
+                    "SELECT DISTINCT TABLE_NAME " +
+                    "FROM information_schema.COLUMNS " +
+                    "WHERE COLUMN_NAME IN ('Start_time') " +
+                    "AND TABLE_SCHEMA='TestData'"; // TestData DB 안에서 'Start_time' 컬럼을 포함하는 테이블명 조회
 
                 OdbcCommand command = new OdbcCommand(queryString);
 
+                List<string> tableNames = new List<string>();
                 using (OdbcConnection connection = new OdbcConnection(tmpDSN))
                 {
                     command.Connection = connection;
                     connection.Open();
-                    command.ExecuteNonQuery();
+                    OdbcDataReader dr = command.ExecuteReader();
 
-                    // The connection is automatically closed at
-                    // the end of the Using block.
+                    while (dr.Read())
+                    {
+                        tableNames.Add(dr["TABLE_NAME"].ToString());
+                    }
                 }
 
-                tmpDgv.Rows.Remove(tmpDgv.Rows[tmpDgv.CurrentRow.Index]);
+                DataGridView tmpDgv = (sender as DataGridView);
+                string tmpStartTime;
+
+                foreach(DataGridViewCell cell in tmpDgv.SelectedCells)
+                {
+                    if(cell.Selected)
+                    {
+                        try
+                        {   
+                            tmpStartTime = tmpDgv.Rows[cell.RowIndex].Cells[tmpDgv.Columns["Start_time"].Index].Value.ToString();
+                        }
+                        catch (Exception exp)
+                        {
+                            MessageBox.Show("시작 시간이 미표기상태입니다.");
+                            return;
+                        }
+
+                        using (OdbcConnection connection = new OdbcConnection(tmpDSN))
+                        {
+                            connection.Open();
+                            foreach (string tableName in tableNames)
+                            {
+                                queryString = "delete from " + tableName + " where ";
+                                queryString += "Start_time = '" + tmpStartTime + "'";
+
+                                command.CommandText = queryString;
+                                command.Connection = connection;
+                                command.ExecuteNonQuery();
+
+                                // The connection is automatically closed at
+                                // the end of the Using block.
+                            }
+                        }
+                        tmpDgv.Rows.Remove(tmpDgv.Rows[cell.RowIndex]);
+                    }
+                }
             }
         }
 
