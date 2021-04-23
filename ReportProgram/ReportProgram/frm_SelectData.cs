@@ -100,20 +100,8 @@ namespace ReportProgram
         {
             string queryString = "";
 
-            string dateFormat = "yyyy-MM-dd";
-            string start_Date = dtp_StartDate.Value.ToString(dateFormat);
-            string end_Date = dtp_EndDate.Value.AddDays(1).ToString(dateFormat);
-
-
             // Test_Data 테이블이 존재하면 기존것도 조회하고 Test_Data+날짜 테이블도 조회
-            if (Check_Table("Test_Data") == true)
-            {
-                queryString += "select * from Test_Data where ";
-                queryString += "Start_time >= '" + start_Date + "' and Start_time < '" + end_Date + "' ";
-                if (cbx_SelModel.Text != "")
-                    queryString += "and model_name='" + cbx_SelModel.Text + "' ";
-            }
-
+            queryString += getSelectQuery("Test_Data");
 
             for (int i = 0; i < ((dtp_EndDate.Value.Year - dtp_StartDate.Value.Year) * 12) + (dtp_EndDate.Value.Month - dtp_StartDate.Value.Month) + 1; i++)
             {
@@ -128,35 +116,44 @@ namespace ReportProgram
 
                 string tableName = "Test_Data_" + tableYear.ToString("0000") +"_"+ tableMonth.ToString("00");
 
-                if (Check_Table(tableName) == true)
-                {
-                    if (queryString.Equals("") == false)
-                        queryString += "union all ";
-
-                    queryString += "select * from " + tableName + " where ";
-                    queryString += "Start_time >= '" + start_Date + "' and Start_time < '" + end_Date + "' ";
-
-                    if (rdb_NoSel.Checked)
-                    {
-
-                    }
-                    else if (rdb_SelOk.Checked)
-                    {
-                        queryString += "and Total_result='양품' ";
-                    }
-                    else
-                    {
-                        queryString += "and Total_result='불량' ";
-                    }
-
-                    if (cbx_SelModel.Text != "")
-                        queryString += "and model_name='" + cbx_SelModel.Text + "' ";
-
-                    queryString += "order by Start_time asc, End_time asc "; // 은성 수정사항
-                }
+                if (queryString.Equals("") == false)
+                    queryString += "union all ";
+                queryString += getSelectQuery(tableName);
             }
-
+            if(queryString != "")
+                queryString += "order by Start_time asc, End_time asc "; // 은성 수정사항
             this.sendData(queryString, cbx_SelModel.Text);
+        }
+
+        private string getSelectQuery(string tableName)
+        {
+            string queryString = "";
+            string dateFormat = "yyyy-MM-dd";
+            string start_Date = dtp_StartDate.Value.ToString(dateFormat);
+            string end_Date = dtp_EndDate.Value.AddDays(1).ToString(dateFormat);
+
+            if (Check_Table(tableName) == true)
+            {
+                queryString += "select * from " + tableName + " where ";
+                queryString += "Start_time >= '" + start_Date + "' and Start_time < '" + end_Date + "' ";
+
+                if (rdb_NoSel.Checked)
+                {
+
+                }
+                else if (rdb_SelOk.Checked)
+                {
+                    queryString += "and Total_result='양품' ";
+                }
+                else
+                {
+                    queryString += "and Total_result='불량' ";
+                }
+
+                if (cbx_SelModel.Text != "")
+                    queryString += "and model_name='" + cbx_SelModel.Text + "' ";
+            }
+            return queryString;
         }
 
         private void btn_CancleSelect_Click(object sender, EventArgs e)
