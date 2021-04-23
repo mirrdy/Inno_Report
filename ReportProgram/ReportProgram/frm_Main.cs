@@ -129,6 +129,7 @@ namespace ReportProgram
                     "`Serial_number` VARCHAR(2048) NULL DEFAULT NULL," +
                     "`Barcode` VARCHAR(2048) NULL DEFAULT NULL," +
                     "`Total_result` VARCHAR(32) NULL DEFAULT NULL," +
+                    "`Insert_Flag` TINYINT NULL DEFAULT NULL," +
                     "`Test_Data` TEXT NULL DEFAULT NULL," +
                     "PRIMARY KEY(`No`)" +
                 ")" +
@@ -370,7 +371,7 @@ namespace ReportProgram
                 while (dr.Read())
                 {
                     string insertFlag = dr["Insert_Flag"].ToString();
-                    if(insertFlag.Equals("True", StringComparison.OrdinalIgnoreCase))
+                    if(insertFlag.Equals("1", StringComparison.OrdinalIgnoreCase))
                     {
                         ExportToCsv(dr);
 
@@ -412,7 +413,31 @@ namespace ReportProgram
             catch (InvalidOperationException ex)
             {
                 // Table이 없음
-                return false;
+                queryString = "CREATE TABLE `" + tableName + "`(" +
+                    "`No` INT(10) NOT NULL AUTO_INCREMENT," +
+                    "`Model_name` VARCHAR(1024) NOT NULL," +
+                    "`Test_user` VARCHAR(32) NULL DEFAULT NULL," +
+                    "`Start_time` VARCHAR(128) NULL DEFAULT NULL," +
+                    "`End_time` VARCHAR(128) NULL DEFAULT NULL," +
+                    "`Serial_number` VARCHAR(2048) NULL DEFAULT NULL," +
+                    "`Barcode` VARCHAR(2048) NULL DEFAULT NULL," +
+                    "`Total_result` VARCHAR(32) NULL DEFAULT NULL," +
+                    "`Insert_Flag` TINYINT NULL DEFAULT NULL," +
+                    "`Test_Data` TEXT NULL DEFAULT NULL," +
+                    "PRIMARY KEY(`No`)" +
+                ")" +
+                "COLLATE = 'utf8_general_ci';";
+
+                command.CommandText = queryString;
+
+                using (OdbcConnection connection = new OdbcConnection("dsn=" + mySetting.Info_DBConnection))
+                {
+                    command.Connection = connection;
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+
+                return true;
             }
             catch (Exception e)
             {

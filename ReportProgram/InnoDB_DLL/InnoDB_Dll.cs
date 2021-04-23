@@ -223,7 +223,7 @@ namespace InnoDB_DLL
                     "`Serial_number` VARCHAR(2048) NULL DEFAULT NULL," +
                     "`Barcode` VARCHAR(2048) NULL DEFAULT NULL," +
                     "`Total_result` VARCHAR(32) NULL DEFAULT NULL," +
-                    "`Insert_Flag` BIT NULL DEFAULT NULL," +
+                    "`Insert_Flag` TINYINT NULL DEFAULT NULL," +
                     "`Test_Data` TEXT NULL DEFAULT NULL," +
                     "PRIMARY KEY(`No`)" +
                 ")" +

@@ -4,7 +4,7 @@
   <Size_W>1920</Size_W>
   <Size_H>1080</Size_H>
   <Target_Count>1000</Target_Count>
-  <Info_DBConnection>MariaDB</Info_DBConnection>
+  <Info_DBConnection>LX2</Info_DBConnection>
   <StartViewIndex>3</StartViewIndex>
   <JobOrder_SlideShow_Time>5</JobOrder_SlideShow_Time>
   <JobOrder_File1>D:\FirstRepository\ReportProgram\System\작업지시서 샘플\1.PNG</JobOrder_File1>
@@ -228,4 +228,5 @@
   <HeaderDisplay8>True</HeaderDisplay8>
   <HeaderWidth8>70</HeaderWidth8>
   <HeaderName8>Total_result</HeaderName8>
+  <LogPath>D:\LX2_PTM28_Performance_Tester_Report</LogPath>
 </Setting>
