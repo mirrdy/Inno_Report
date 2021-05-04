@@ -117,7 +117,7 @@ namespace ReportProgram
             mySetting.Info_DBConnection = infoDBConInputBox.Text;
             mySetting.StartViewIndex = cbb_StartViewIndex.SelectedIndex;
 
-            mySetting.JobOrder_SlideShow_Time = myConvert.StrToFlotDef(tbx_SlideShow_Time.Text, 0);
+            mySetting.JobOrder_SlideShow_Time = myConvert.StrToDoubleDef(tbx_SlideShow_Time.Text, 0);
             // 작업지시서 파일 리스트
             for (int i = 0; i < 100; i++)
             {

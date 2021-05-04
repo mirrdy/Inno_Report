@@ -92,7 +92,7 @@
             this.btn_Apply.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_Apply.Image = ((System.Drawing.Image)(resources.GetObject("btn_Apply.Image")));
             this.btn_Apply.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_Apply.Location = new System.Drawing.Point(66, 374);
+            this.btn_Apply.Location = new System.Drawing.Point(498, 447);
             this.btn_Apply.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_Apply.Name = "btn_Apply";
             this.btn_Apply.Size = new System.Drawing.Size(167, 42);
@@ -164,7 +164,6 @@
             this.groupBox1.Controls.Add(this.cbb_StartViewIndex);
             this.groupBox1.Controls.Add(this.label5);
             this.groupBox1.Controls.Add(this.label2);
-            this.groupBox1.Controls.Add(this.btn_Apply);
             this.groupBox1.Controls.Add(this.label3);
             this.groupBox1.Controls.Add(this.targetInputBox);
             this.groupBox1.Controls.Add(this.label4);
@@ -499,6 +498,7 @@
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.label1);
+            this.Controls.Add(this.btn_Apply);
             this.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.None;
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);

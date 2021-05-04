@@ -144,6 +144,7 @@ namespace ReportProgram
             this.cht_DetailData.Series.Add(series1);
             this.cht_DetailData.Size = new System.Drawing.Size(1271, 405);
             this.cht_DetailData.TabIndex = 7;
+            this.cht_DetailData.MouseMove += new System.Windows.Forms.MouseEventHandler(this.cht_DetailData_MouseMove);
             // 
             // panel2
             // 
@@ -159,9 +160,9 @@ namespace ReportProgram
             // lbl_GraphData
             // 
             this.lbl_GraphData.Dock = System.Windows.Forms.DockStyle.Right;
-            this.lbl_GraphData.Location = new System.Drawing.Point(1087, 0);
+            this.lbl_GraphData.Location = new System.Drawing.Point(168, 0);
             this.lbl_GraphData.Name = "lbl_GraphData";
-            this.lbl_GraphData.Size = new System.Drawing.Size(184, 27);
+            this.lbl_GraphData.Size = new System.Drawing.Size(1103, 27);
             this.lbl_GraphData.TabIndex = 6;
             this.lbl_GraphData.Text = "label1";
             this.lbl_GraphData.TextAlign = System.Drawing.ContentAlignment.BottomRight;

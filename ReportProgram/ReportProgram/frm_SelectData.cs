@@ -62,7 +62,7 @@ namespace ReportProgram
 
         private bool Check_Table(string table)
         {
-            // Test_Data 테이블 체크
+            // 테이블 체크
             string queryString = "SHOW TABLES LIKE '" + table + "'";
             OdbcCommand command = new OdbcCommand(queryString);
             try
@@ -99,28 +99,32 @@ namespace ReportProgram
         private void btn_ConfirmSelect_Click(object sender, EventArgs e)
         {
             string queryString = "";
-
-            // Test_Data 테이블이 존재하면 기존것도 조회하고 Test_Data+날짜 테이블도 조회
-            queryString += getSelectQuery("Test_Data");
+            string tmpQuery = "";
 
             for (int i = 0; i < ((dtp_EndDate.Value.Year - dtp_StartDate.Value.Year) * 12) + (dtp_EndDate.Value.Month - dtp_StartDate.Value.Month) + 1; i++)
             {
                 int tableYear = dtp_StartDate.Value.Year;
                 int tableMonth = dtp_StartDate.Value.Month + i;
-                
+
                 if (tableMonth > 12)
                 {
                     tableYear += tableMonth / 12;
                     tableMonth = tableMonth % 12;
                 }
 
-                string tableName = "Test_Data_" + tableYear.ToString("0000") +"_"+ tableMonth.ToString("00");
+                string tableName = "Test_Data_" + tableYear.ToString("0000") + "_" + tableMonth.ToString("00");
+                tmpQuery = getSelectQuery(tableName);
 
-                if (queryString.Equals("") == false)
-                    queryString += "union all ";
-                queryString += getSelectQuery(tableName);
+                if (queryString.Length > 0 && tmpQuery.Length > 0) queryString = queryString + "union all " + tmpQuery;
+                else if (queryString.Length <= 0 && tmpQuery.Length > 0) queryString = tmpQuery;
             }
-            if(queryString != "")
+
+            // Test_Data 테이블이 존재하면 기존것도 조회하고 Test_Data+날짜 테이블도 조회
+            tmpQuery = getSelectQuery("Test_Data");
+            if (queryString.Length > 0 && tmpQuery.Length > 0) queryString = queryString + "union all " + tmpQuery;
+            else if (queryString.Length <= 0 && tmpQuery.Length > 0) queryString = tmpQuery;
+
+            if (queryString != "")
                 queryString += "order by Start_time asc, End_time asc "; // 은성 수정사항
             this.sendData(queryString, cbx_SelModel.Text);
         }

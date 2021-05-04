@@ -123,8 +123,8 @@ namespace ReportProgram
                     else if (readRow[6].Equals("불량")) selectedDataView[6, selectedDataView.Rows.Count - 1].Style.BackColor = Color.Red;
                 }
             }
-            selectedDataView.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("맑은 고딕", 10, FontStyle.Bold);
-
+            selectedDataView.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("맑은 고딕", 10/*, FontStyle.Bold*/); // 한글을 진하게 하면 자동너비조정이 잘 안됨
+            selectedDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells; // 너비 자동조절
 
             // 행번호 붙이기
             int rowNumber = 1;
@@ -135,11 +135,6 @@ namespace ReportProgram
                 row.HeaderCell.Value = rowNumber.ToString();
                 rowNumber++;
             }
-            /*selectedDataView.AutoResizeRowHeadersWidth(DataGridViewRowHeadersWidthSizeMode.AutoSizeToAllHeaders);
-            selectedDataView.AutoResizeColumns();
-            selectedDataView.AutoResizeColumns(DataGridViewAutoSizeColumnsMode.AllCells);*/
-
-            
         }
 
         private void create_SelectedDgv(string ConnectionString, string model_name)
@@ -179,7 +174,7 @@ namespace ReportProgram
 
                 int tmpColumnCount = selectedDataView.Columns.Count - 1;
 
-                selectedDataView.Columns[tmpColumnCount].Width = mySetting.HeaderWidth[tmpColumnCount];
+                selectedDataView.Columns[tmpColumnCount].Width = mySetting.HeaderWidth[i];
                 selectedDataView.Columns[tmpColumnCount].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
 
@@ -226,6 +221,7 @@ namespace ReportProgram
                     selectedDataView.Columns[selectedDataView.Columns.Count - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
                     selectedDataView.Columns[selectedDataView.Columns.Count - 1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                 }
+                selectedDataView.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
         }
         
@@ -622,6 +618,7 @@ namespace ReportProgram
 
                 DataGridView tmpDgv = (sender as DataGridView);
                 string tmpStartTime;
+                string tmpEndTime;
 
                 foreach(DataGridViewCell cell in tmpDgv.SelectedCells)
                 {
@@ -630,10 +627,11 @@ namespace ReportProgram
                         try
                         {   
                             tmpStartTime = tmpDgv.Rows[cell.RowIndex].Cells[tmpDgv.Columns["Start_time"].Index].Value.ToString();
+                            tmpEndTime = tmpDgv.Rows[cell.RowIndex].Cells[tmpDgv.Columns["End_time"].Index].Value.ToString();
                         }
                         catch (Exception exp)
                         {
-                            MessageBox.Show("시작 시간이 미표기상태입니다.");
+                            MessageBox.Show("시작 시각 또는 종료 시각이 미표기상태입니다.");
                             return;
                         }
 
@@ -643,7 +641,8 @@ namespace ReportProgram
                             foreach (string tableName in tableNames)
                             {
                                 queryString = "delete from " + tableName + " where ";
-                                queryString += "Start_time = '" + tmpStartTime + "'";
+                                queryString += "Start_time = '" + tmpStartTime + "' ";
+                                queryString += "and End_time = '" + tmpEndTime + "'";
 
                                 command.CommandText = queryString;
                                 command.Connection = connection;

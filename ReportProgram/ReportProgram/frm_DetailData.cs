@@ -70,6 +70,7 @@ namespace ReportProgram
             List<double> dataList = new List<double>();
             double tmpNum;
             bool isNum = false;
+            string tmpValue = "";
 
             for (int i = 0; i < 8; i++)
             {
@@ -77,20 +78,23 @@ namespace ReportProgram
                 dataStartIndex++;
             }
 
-            for(int i=dataStartIndex; i<srcDgv.ColumnCount; i++)
+            for(int i=7; i<srcDgv.ColumnCount; i++)
             {
+                bool addRowFlg = false;
                 dataList.Clear();
                 for (int j = 0; j < srcDgv.RowCount; j++)
                 {
-                    // Cell의 값이 double형으로 변환이 안되면 false 반환
-                    isNum = double.TryParse(srcDgv.Rows[j].Cells[i].Value.ToString(), out tmpNum);
+                    // Cell의 값이 double형으로 변환이 안되면 false 반환 (공백("")도 false)
+                    tmpValue = srcDgv.Rows[j].Cells[i].Value.ToString();
+                    isNum = double.TryParse(tmpValue, out tmpNum);
                     if (isNum)
                     {
                         dataList.Add(tmpNum);
+                        addRowFlg = true;
                     }
                 }
 
-                if(isNum)
+                if(addRowFlg)
                 {
                     dgv_DetailData.Rows.Add(new object[] { dataList.Min(), dataList.Average(), dataList.Max(), false } );
                     dgv_DetailData.Rows[dgv_DetailData.RowCount - 1].HeaderCell.Value = srcDgv.Columns[i].HeaderCell.Value;
@@ -116,12 +120,21 @@ namespace ReportProgram
                 if ((cht_DetailData.Series[0].Points.Count > tmpIndex) && (tmpIndex > -1))
                 {
                     double tmpX = cht_DetailData.Series[0].Points[tmpIndex].GetValueByName("X");
-                    lbl_GraphData.Text = tmpX.ToString();
+                    lbl_GraphData.Text = "X: [" + tmpX.ToString() + "] ";
 
+                    List<string> chartDisplayData = new List<string>();
+                    for(int i=0; i<dgv_DetailData.RowCount; i++)
+                    {
+                        if((bool)dgv_DetailData.Rows[i].Cells[3].Value == true)
+                        {
+                            chartDisplayData.Add(dgv_DetailData.Rows[i].HeaderCell.Value.ToString());
+                        }
+                    }
                     for (int i = 0; i < cht_DetailData.Series.Count; i++)
                     {
                         double tmpY = cht_DetailData.Series[i].Points[tmpIndex].GetValueByName("Y");
-                        lbl_GraphData.Text += ", " + tmpY.ToString();
+                        
+                        lbl_GraphData.Text += chartDisplayData[i] + ": " + tmpY.ToString() +", ";
                     }
                 }
             }
@@ -141,7 +154,9 @@ namespace ReportProgram
 
                     for (int j = 0; j < srcDgv.RowCount; j++)
                     {
-                        cht_DetailData.Series[cht_DetailData.Series.Count - 1].Points.AddXY(j, srcDgv.Rows[j].Cells[dgv_DetailData.Rows[i].HeaderCell.Value.ToString()].Value);
+                        // 미검사 데이터("") 차트에서 제외
+                        if(srcDgv.Rows[j].Cells[dgv_DetailData.Rows[i].HeaderCell.Value.ToString()].Value.ToString() != "")
+                            cht_DetailData.Series[cht_DetailData.Series.Count - 1].Points.AddXY(j, srcDgv.Rows[j].Cells[dgv_DetailData.Rows[i].HeaderCell.Value.ToString()].Value);
                     }
                 }
             }

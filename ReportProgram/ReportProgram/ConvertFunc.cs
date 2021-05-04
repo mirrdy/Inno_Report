@@ -32,6 +32,18 @@ namespace ReportProgram
             }
         }
 
+        public double StrToDoubleDef(string src, double def)
+        {
+            try
+            {
+                return Convert.ToDouble(src);
+            }
+            catch (Exception e)
+            {
+                return def;
+            }
+        }
+
         public uint HexStrToUIntDef(string src, uint def)
         {
             try
@@ -85,6 +97,18 @@ namespace ReportProgram
             try
             {
                 return Convert.ToDouble(src);
+            }
+            catch (Exception e)
+            {
+                return def;
+            }
+        }
+
+        public bool StrToBoolDef(string src, bool def)
+        {
+            try
+            {
+                return Convert.ToBoolean(src);
             }
             catch (Exception e)
             {

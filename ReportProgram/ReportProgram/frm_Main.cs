@@ -373,11 +373,12 @@ namespace ReportProgram
                     string insertFlag = dr["Insert_Flag"].ToString();
                     if(insertFlag.Equals("1", StringComparison.OrdinalIgnoreCase))
                     {
-                        ExportToCsv(dr);
-
-                        OdbcCommand updateCommand = new OdbcCommand("update " + tableName + " set Insert_Flag = 0 where No = " + dr["No"].ToString());
-                        updateCommand.Connection = connection;
-                        updateCommand.ExecuteNonQuery();
+                        if(ExportToCsv(dr) == true)
+                        {
+                            OdbcCommand updateCommand = new OdbcCommand("update " + tableName + " set Insert_Flag = 0 where No = " + dr["No"].ToString());
+                            updateCommand.Connection = connection;
+                            updateCommand.ExecuteNonQuery();
+                        }
                     }
                 }
             }
@@ -449,7 +450,7 @@ namespace ReportProgram
         }
 
 
-        private void ExportToCsv(OdbcDataReader dr)
+        private bool ExportToCsv(OdbcDataReader dr)
         {
             string LogPath = mySetting.LogPath + "\\" +
                 dr["Model_name"].ToString() + "\\" +
@@ -457,7 +458,7 @@ namespace ReportProgram
                 DateTime.Now.ToString("yyyy-MM") + "\\" +
                 DateTime.Now.ToString("yyyy-MM-dd") + ".csv";
 
-            if (LogPath.Length == 0) return;
+            if (LogPath.Length == 0) return false;
             Directory.CreateDirectory(Path.GetDirectoryName(LogPath));
 
             bool fileExist = File.Exists(LogPath);
@@ -602,8 +603,9 @@ namespace ReportProgram
             }
             catch(Exception e)
             {
-                
+                return false;
             }
+            return true;
         }
     }
 }

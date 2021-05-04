@@ -59,18 +59,35 @@ namespace ReportProgram
 
         private void ShowChart(string connectionString)
         {
-            string queryString;
+            string queryString = "";
             List<int> tmpOKCount = new List<int>();
             List<int> tmpNGCount = new List<int>();
             List<DateTime> tmpDate = new List<DateTime>();
+            DateTime nowTime = DateTime.Now;
 
             tmpOKCount.Clear();
             tmpNGCount.Clear();
             tmpDate.Clear();
 
+            string tmpQuery = "";
+
+            string tableName = "Test_Data_" + nowTime.Year.ToString("0000") + "_" + nowTime.Month.ToString("00");
+            tmpQuery = getSelectQuery_Chart(tableName);
+
+            if (queryString.Length > 0 && tmpQuery.Length > 0) queryString += "union all " + tmpQuery;
+            else if (queryString.Length <= 0 && tmpQuery.Length > 0) queryString = tmpQuery;
+
+            // Test_Data 테이블이 존재하면 기존것도 조회하고 Test_Data+날짜 테이블도 조회
+            tmpQuery = getSelectQuery_Chart("Test_Data");
+            if (queryString.Length > 0 && tmpQuery.Length > 0) queryString = queryString + "union all " + tmpQuery;
+            else if (queryString.Length <= 0 && tmpQuery.Length > 0) queryString = tmpQuery;
+
+            if (queryString != "")
+                queryString += "order by Start_time asc ";
+
             try
             {
-                queryString = "select * from Test_Data order by start_time asc;";
+                //queryString = "select * from Test_Data order by start_time asc;";
                 OdbcCommand command = new OdbcCommand(queryString);
                 using (OdbcConnection connection = new OdbcConnection(connectionString))
                 {
@@ -117,7 +134,7 @@ namespace ReportProgram
                 {
                     chart1.Series["Pass"].Points.AddXY(tmpDate[i].ToString("yyyy-MM-dd"), tmpOKCount[i]);
                     chart1.Series["Fail"].Points.AddXY(tmpDate[i].ToString("yyyy-MM-dd"), tmpNGCount[i]);
-                    chart1.Series["Yield"].Points.AddXY(tmpDate[i].ToString("yyyy-MM-dd"), (tmpOKCount[i] / (double)(tmpOKCount[i] + tmpNGCount[i]) * 100));
+                    chart1.Series["Yield"].Points.AddXY(tmpDate[i].ToString("yyyy-MM-dd"), (tmpOKCount[i] / (double)(tmpOKCount[i] + tmpNGCount[i]) * 100).ToString("0.00"));
                 }
 
                 // 원형차트 디스플레이
@@ -161,12 +178,89 @@ namespace ReportProgram
             }
         }
 
+        private string getSelectQuery_Chart(string tableName)
+        {
+            string queryString = "";
+
+            if (Check_Table(tableName) == true)
+            {
+                queryString += "select * from " + tableName + " ";
+            }
+            return queryString;
+        }
+
+        private string getSelectQuery_Grid(string tableName)
+        {
+            string selected_Date = DateTime.Now.ToString("yyyy-MM-dd");
+            string queryString = "";
+            
+            if (Check_Table(tableName) == true)
+            {
+                queryString += "select * from " + tableName + " where Start_time like '" + selected_Date + "%'";
+            }
+            return queryString;
+        }
+
+        private bool Check_Table(string table)
+        {
+            // 테이블 체크
+            string queryString = "SHOW TABLES LIKE '" + table + "'";
+            OdbcCommand command = new OdbcCommand(queryString);
+            try
+            {
+                using (OdbcConnection connection = new OdbcConnection("dsn=" + mySetting.Info_DBConnection))
+                {
+                    command.Connection = connection;
+                    connection.Open();
+
+                    OdbcDataReader dr = command.ExecuteReader();
+
+                    dr.Read();
+                    // 테이블 생성시 무조건 Column을 하나 이상 포함해야 하기 때문에 0번이 없으면 해당 테이블이 존재하지 않음
+                    if (dr[0] != DBNull.Value)
+                    {
+                        // Table이 존재함
+                    }
+                    dr.Close();
+                }
+            }
+            catch (InvalidOperationException ex)
+            {
+                // Table이 없음
+                return false;
+            }
+            catch (Exception e)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
         private void ShowGrid(string connectionString)
         {
             int[] goodCount = new int[modelCount];
             int[] badCount = new int[modelCount];
             string selected_Date = DateTime.Now.ToString("yyyy-MM-dd");
-            string queryString = "select * from Test_Data where Start_time like '" + selected_Date + "%'"; //selected_Date 날짜의 데이터 선택
+            DateTime nowTime = DateTime.Now;
+            //string queryString = "select * from Test_Data where Start_time like '" + selected_Date + "%'"; //selected_Date 날짜의 데이터 선택
+
+            string queryString = "";
+            string tmpQuery = "";
+
+            string tableName = "Test_Data_" + nowTime.Year.ToString("0000") + "_" + nowTime.Month.ToString("00");
+            tmpQuery = getSelectQuery_Grid(tableName);
+
+            if (queryString.Length > 0 && tmpQuery.Length > 0) queryString += "union all " + tmpQuery;
+            else if (queryString.Length <= 0 && tmpQuery.Length > 0) queryString = tmpQuery;
+
+            // Test_Data 테이블이 존재하면 기존것도 조회하고 Test_Data+날짜 테이블도 조회
+            tmpQuery = getSelectQuery_Grid("Test_Data");
+            if (queryString.Length > 0 && tmpQuery.Length > 0) queryString = queryString + "union all " + tmpQuery;
+            else if (queryString.Length <= 0 && tmpQuery.Length > 0) queryString = tmpQuery;
+
+            if (queryString != "")
+                queryString += "order by Start_time asc ";
 
             try
             {

@@ -5,19 +5,15 @@
   <Size_H>1080</Size_H>
   <Target_Count>1000</Target_Count>
   <Info_DBConnection>LX2</Info_DBConnection>
-  <StartViewIndex>3</StartViewIndex>
-  <JobOrder_SlideShow_Time>5</JobOrder_SlideShow_Time>
-  <JobOrder_File1>D:\FirstRepository\ReportProgram\System\작업지시서 샘플\1.PNG</JobOrder_File1>
-  <JobOrder_File2>D:\FirstRepository\ReportProgram\System\작업지시서 샘플\2.PNG</JobOrder_File2>
-  <JobOrder_File3>D:\FirstRepository\ReportProgram\System\작업지시서 샘플\3.PNG</JobOrder_File3>
-  <JobOrder_File4>
-  </JobOrder_File4>
-  <JobOrder_File5>
-  </JobOrder_File5>
-  <JobOrder_File6>
-  </JobOrder_File6>
-  <JobOrder_File7>
-  </JobOrder_File7>
+  <StartViewIndex>0</StartViewIndex>
+  <JobOrder_SlideShow_Time>1</JobOrder_SlideShow_Time>
+  <JobOrder_File1>D:\Inno_Report\ReportProgram\System\작업지시서 샘플\1.PNG</JobOrder_File1>
+  <JobOrder_File2>D:\Inno_Report\ReportProgram\System\작업지시서 샘플\2.PNG</JobOrder_File2>
+  <JobOrder_File3>D:\Inno_Report\ReportProgram\System\작업지시서 샘플\3.PNG</JobOrder_File3>
+  <JobOrder_File4>D:\Inno_Report\ReportProgram\System\작업지시서 샘플\4.PNG</JobOrder_File4>
+  <JobOrder_File5>D:\Inno_Report\ReportProgram\System\작업지시서 샘플\5.PNG</JobOrder_File5>
+  <JobOrder_File6>D:\Inno_Report\ReportProgram\System\작업지시서 샘플\6.PNG</JobOrder_File6>
+  <JobOrder_File7>D:\Inno_Report\ReportProgram\System\작업지시서 샘플\7.PNG</JobOrder_File7>
   <JobOrder_File8>
   </JobOrder_File8>
   <JobOrder_File9>
@@ -214,10 +210,10 @@
   <HeaderWidth3>70</HeaderWidth3>
   <HeaderName3>Tester</HeaderName3>
   <HeaderDisplay4>True</HeaderDisplay4>
-  <HeaderWidth4>70</HeaderWidth4>
+  <HeaderWidth4>100</HeaderWidth4>
   <HeaderName4>Start_time</HeaderName4>
   <HeaderDisplay5>True</HeaderDisplay5>
-  <HeaderWidth5>70</HeaderWidth5>
+  <HeaderWidth5>100</HeaderWidth5>
   <HeaderName5>End_time</HeaderName5>
   <HeaderDisplay6>False</HeaderDisplay6>
   <HeaderWidth6>70</HeaderWidth6>
@@ -226,7 +222,7 @@
   <HeaderWidth7>70</HeaderWidth7>
   <HeaderName7>Barcode</HeaderName7>
   <HeaderDisplay8>True</HeaderDisplay8>
-  <HeaderWidth8>70</HeaderWidth8>
+  <HeaderWidth8>100</HeaderWidth8>
   <HeaderName8>Total_result</HeaderName8>
   <LogPath>D:\LX2_PTM28_Performance_Tester_Report</LogPath>
 </Setting>

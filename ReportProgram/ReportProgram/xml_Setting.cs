@@ -15,6 +15,8 @@ namespace ReportProgram
 {
     class xml_Setting
     {
+        private ConvertFunc myConvert = new ConvertFunc();
+
         public int Location_X;
         public int Location_Y;
 
@@ -160,22 +162,22 @@ namespace ReportProgram
             XmlNode el_Location_X = doc.SelectSingleNode("//Setting/Location_X");
             if (el_Location_X != null)
             {
-                Location_X = Convert.ToInt32(el_Location_X.InnerText);
+                Location_X = myConvert.StrToIntDef(el_Location_X.InnerText, 0);
             }
             XmlNode el_Location_Y = doc.SelectSingleNode("//Setting/Location_Y");
             if (el_Location_Y != null)
             {
-                Location_Y = Convert.ToInt32(el_Location_Y.InnerText);
+                Location_Y = myConvert.StrToIntDef(el_Location_Y.InnerText, 0);
             }
             XmlNode el_Size_W = doc.SelectSingleNode("//Setting/Size_W");
             if (el_Size_W != null)
             {
-                Size_W = Convert.ToInt32(el_Size_W.InnerText);
+                Size_W = myConvert.StrToIntDef(el_Size_W.InnerText, 0);
             }
             XmlNode el_Size_H = doc.SelectSingleNode("//Setting/Size_H");
             if (el_Size_H != null)
             {
-                Size_H = Convert.ToInt32(el_Size_H.InnerText);
+                Size_H = myConvert.StrToIntDef(el_Size_H.InnerText, 0);
             }
 
             // Daily
@@ -185,7 +187,7 @@ namespace ReportProgram
 
             if (node_Target_Count != null)
             {
-                Target_Count = Convert.ToInt32(node_Target_Count.InnerText);
+                Target_Count = myConvert.StrToIntDef(node_Target_Count.InnerText, 0);
             }
             if (node_Info_DBConnection != null)
             {
@@ -193,11 +195,11 @@ namespace ReportProgram
             }
             if (node_StartViewIndex != null)
             {
-                StartViewIndex = Convert.ToInt32(node_StartViewIndex.InnerText);
+                StartViewIndex = myConvert.StrToIntDef(node_StartViewIndex.InnerText, 0);
             }
 
             XmlNode node_JobOrder_SlideShow_Time = doc.SelectSingleNode("//Setting/JobOrder_SlideShow_Time");
-            if (node_JobOrder_SlideShow_Time != null) JobOrder_SlideShow_Time = Convert.ToInt32(node_JobOrder_SlideShow_Time.InnerText);
+            if (node_JobOrder_SlideShow_Time != null) JobOrder_SlideShow_Time = myConvert.StrToDoubleDef(node_JobOrder_SlideShow_Time.InnerText, 0);
 
             // 작업지시서 파일 리스트
             for (int i = 0; i < 100; i++)
@@ -215,12 +217,12 @@ namespace ReportProgram
                 XmlNode node_HeaderDisplay = doc.SelectSingleNode("//Setting/HeaderDisplay" + (i + 1).ToString());
                 if(node_HeaderDisplay != null)
                 {
-                    HeaderDisplay[i] = Convert.ToBoolean(node_HeaderDisplay.InnerText);
+                    HeaderDisplay[i] = myConvert.StrToBoolDef(node_HeaderDisplay.InnerText, false);
                 }
                 XmlNode node_HeaderWidth = doc.SelectSingleNode("//Setting/HeaderWidth" + (i + 1).ToString());
                 if(node_HeaderWidth != null)
                 {
-                    HeaderWidth[i] = Convert.ToInt32(node_HeaderWidth.InnerText);
+                    HeaderWidth[i] = myConvert.StrToIntDef(node_HeaderWidth.InnerText, 0);
                 }
                 XmlNode node_HeaderName = doc.SelectSingleNode("//Setting/HeaderName" + (i + 1).ToString());
                 if(node_HeaderName != null)
