@@ -6,7 +6,7 @@
   <Target_Count>1000</Target_Count>
   <Info_DBConnection>LX2</Info_DBConnection>
   <StartViewIndex>0</StartViewIndex>
-  <JobOrder_SlideShow_Time>1</JobOrder_SlideShow_Time>
+  <JobOrder_SlideShow_Time>5</JobOrder_SlideShow_Time>
   <JobOrder_File1>D:\Inno_Report\ReportProgram\System\작업지시서 샘플\1.PNG</JobOrder_File1>
   <JobOrder_File2>D:\Inno_Report\ReportProgram\System\작업지시서 샘플\2.PNG</JobOrder_File2>
   <JobOrder_File3>D:\Inno_Report\ReportProgram\System\작업지시서 샘플\3.PNG</JobOrder_File3>
