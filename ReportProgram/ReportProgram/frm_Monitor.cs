@@ -60,18 +60,32 @@ namespace ReportProgram
         private void ShowChart(string connectionString)
         {
             string queryString = "";
-            List<int> tmpOKCount = new List<int>();
-            List<int> tmpNGCount = new List<int>();
+            int[] tmpOKCount = new int[14];
+            int[] tmpNGCount = new int[14];
             List<DateTime> tmpDate = new List<DateTime>();
             DateTime nowTime = DateTime.Now;
 
-            tmpOKCount.Clear();
-            tmpNGCount.Clear();
+            
+
+            Array.Clear(tmpOKCount, 0, tmpOKCount.Length);
+            Array.Clear(tmpNGCount, 0, tmpNGCount.Length);
             tmpDate.Clear();
 
             string tmpQuery = "";
+            string tableName = "";
 
-            string tableName = "Test_Data_" + nowTime.Year.ToString("0000") + "_" + nowTime.Month.ToString("00");
+            // 14일 전이 오늘 날짜와 다른 년, 월이면 해당 테이블도 조회
+            if (nowTime.Day < 14)
+            {
+                DateTime tmpTime = nowTime.AddDays(-14);
+                tableName = "Test_Data_" + tmpTime.Year.ToString("0000") + "_" + tmpTime.Month.ToString("00");
+                tmpQuery = getSelectQuery_Chart(tableName);
+
+                if (queryString.Length > 0 && tmpQuery.Length > 0) queryString += "union all " + tmpQuery;
+                else if (queryString.Length <= 0 && tmpQuery.Length > 0) queryString = tmpQuery;
+            }
+
+            tableName = "Test_Data_" + nowTime.Year.ToString("0000") + "_" + nowTime.Month.ToString("00");
             tmpQuery = getSelectQuery_Chart(tableName);
 
             if (queryString.Length > 0 && tmpQuery.Length > 0) queryString += "union all " + tmpQuery;
@@ -97,27 +111,18 @@ namespace ReportProgram
                     while (dr.Read())
                     {
                         int tmpIndex = -1;
-                        for (int i = 0; i < tmpDate.Count; i++)
-                        {
-                            DateTime GetDate = Convert.ToDateTime(dr["start_time"].ToString().Substring(0, 10));
-                            if (tmpDate[i] == GetDate)
-                            {
-                                tmpIndex = i;
-                            }
-                        }
 
-                        if (tmpIndex == -1)
+                        DateTime tmpDBDate = Convert.ToDateTime(dr["Start_time"].ToString().Substring(0, 10));
+                        if (nowTime.AddDays(-14) < tmpDBDate && tmpDBDate <= nowTime)
                         {
+                            tmpIndex = tmpDBDate.DayOfYear - (nowTime.DayOfYear - 14) - 1;
                             tmpDate.Add(Convert.ToDateTime(dr["start_time"].ToString().Substring(0, 10)));
-                            tmpOKCount.Add(0);
-                            tmpNGCount.Add(0);
-                            tmpIndex = tmpDate.Count - 1;
-                        }
 
-                        if (dr["total_result"].ToString().Equals("양품"))
-                            tmpOKCount[tmpIndex]++;
-                        else
-                            tmpNGCount[tmpIndex]++;
+                            if (dr["total_result"].ToString().Equals("양품"))
+                                tmpOKCount[tmpIndex]++;
+                            else
+                                tmpNGCount[tmpIndex]++;
+                        }
                     }
 
                     // chart1.ChartAreas[0].AxisX.Minimum = Convert.ToDateTime("20200531");
@@ -130,36 +135,38 @@ namespace ReportProgram
                 chart1.Series["Pass"].Points.Clear();
                 chart1.Series["Fail"].Points.Clear();
                 chart1.Series["Yield"].Points.Clear();
-                for (int i = tmpStartIndex; i < tmpDate.Count; i++)
+
+                for (int i = 0; i < 14; i++)
                 {
-                    chart1.Series["Pass"].Points.AddXY(tmpDate[i].ToString("yyyy-MM-dd"), tmpOKCount[i]);
-                    chart1.Series["Fail"].Points.AddXY(tmpDate[i].ToString("yyyy-MM-dd"), tmpNGCount[i]);
-                    chart1.Series["Yield"].Points.AddXY(tmpDate[i].ToString("yyyy-MM-dd"), (tmpOKCount[i] / (double)(tmpOKCount[i] + tmpNGCount[i]) * 100).ToString("0.00"));
+                    string tmpTime = nowTime.AddDays(-14 + i + 1).ToString("yyyy-MM-dd");
+                    chart1.Series["Pass"].Points.AddXY(tmpTime, tmpOKCount[i]);
+                    chart1.Series["Fail"].Points.AddXY(tmpTime, tmpNGCount[i]);
+                    chart1.Series["Yield"].Points.AddXY(tmpTime, (tmpOKCount[i] / (double)(tmpOKCount[i] + tmpNGCount[i]) * 100).ToString("0.00"));
                 }
 
                 // 원형차트 디스플레이
                 // 원형차트는 금일 생산수량(양품수량)을 표시
-                int TodayOKCount = 0;
-                for (int i = 0; i < tmpDate.Count; i++)
+                int TodayOKCount = tmpOKCount[13];
+                /*for (int i = 0; i < tmpDate.Count; i++)
                 {
                     if (tmpDate[i].Date == DateTime.Now.Date)
                     {
                         TodayOKCount = tmpOKCount[i];
                         break;
                     }
-                }
+                }*/
 
                 chart_Test.Series[0].Points.Clear();
                 chart_Test.Series[0].IsVisibleInLegend = false;
                 chart_Test.Series[0].IsValueShownAsLabel = false;
-                for (int i = 0; i < tmpDate.Count; i++)
+                /*for (int i = 0; i < tmpDate.Count; i++)
                 {
                     if (tmpDate[i] == DateTime.Now)
                     {
                         TodayOKCount = tmpOKCount[i];
                         break;
                     }
-                }
+                }*/
                 chart_Test.Series[0].Points.AddXY("잔여수량 (" + (targetCount - TodayOKCount).ToString() + "EA)", targetCount - TodayOKCount);
                 chart_Test.Series[0].Points[0].Color = Color.Gray;
                 chart_Test.Series[0].Points[0].LabelForeColor = Color.Black;
