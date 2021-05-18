@@ -5,6 +5,7 @@
   <Size_H>1080</Size_H>
   <Target_Count>1000</Target_Count>
   <Info_DBConnection>MariaDB</Info_DBConnection>
+  <DisplayDayCount>14</DisplayDayCount>
   <StartViewIndex>0</StartViewIndex>
   <JobOrder_SlideShow_Time>5</JobOrder_SlideShow_Time>
   <JobOrder_File1>D:\Inno_Report\ReportProgram\System\작업지시서 샘플\1.PNG</JobOrder_File1>

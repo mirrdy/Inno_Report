@@ -23,6 +23,7 @@ namespace ReportProgram
         private bool TmrFlg = false;
         private int modelCount = 0;
         private List<string> model_Name = new List<string>();
+        public int displayDayCount = 7;
         public int targetCount = 123;
 
         TextAnnotation displayNowGoal = new TextAnnotation();
@@ -36,6 +37,10 @@ namespace ReportProgram
         private void loadMySetting()
         {
             mySetting.Setting_Load_Xml(Const.SETTING_FILE_PATH);
+            if (mySetting.DisplayDayCount > 0)
+            {
+                displayDayCount = mySetting.DisplayDayCount;
+            }
             targetCount = mySetting.Target_Count;
         }
 
@@ -60,8 +65,8 @@ namespace ReportProgram
         private void ShowChart(string connectionString)
         {
             string queryString = "";
-            int[] tmpOKCount = new int[14];
-            int[] tmpNGCount = new int[14];
+            int[] tmpOKCount = new int[displayDayCount];
+            int[] tmpNGCount = new int[displayDayCount];
             List<DateTime> tmpDate = new List<DateTime>();
             DateTime nowTime = DateTime.Now;
 
@@ -74,10 +79,10 @@ namespace ReportProgram
             string tmpQuery = "";
             string tableName = "";
 
-            // 14일 전이 오늘 날짜와 다른 년, 월이면 해당 테이블도 조회
-            if (nowTime.Day < 14)
+            // 설정한 표시일 이전이 오늘 날짜와 다른 년, 월이면 해당 테이블도 조회
+            if (nowTime.Day < displayDayCount)
             {
-                DateTime tmpTime = nowTime.AddDays(-14);
+                DateTime tmpTime = nowTime.AddDays(-displayDayCount);
                 tableName = "Test_Data_" + tmpTime.Year.ToString("0000") + "_" + tmpTime.Month.ToString("00");
                 tmpQuery = getSelectQuery_Chart(tableName);
 
@@ -113,9 +118,9 @@ namespace ReportProgram
                         int tmpIndex = -1;
 
                         DateTime tmpDBDate = Convert.ToDateTime(dr["Start_time"].ToString().Substring(0, 10));
-                        if (nowTime.AddDays(-14) < tmpDBDate && tmpDBDate <= nowTime)
+                        if (nowTime.AddDays(-displayDayCount) < tmpDBDate && tmpDBDate <= nowTime)
                         {
-                            tmpIndex = tmpDBDate.DayOfYear - (nowTime.DayOfYear - 14) - 1;
+                            tmpIndex = tmpDBDate.DayOfYear - (nowTime.DayOfYear - displayDayCount) - 1;
                             tmpDate.Add(Convert.ToDateTime(dr["start_time"].ToString().Substring(0, 10)));
 
                             if (dr["total_result"].ToString().Equals("양품"))
@@ -128,25 +133,31 @@ namespace ReportProgram
                     // chart1.ChartAreas[0].AxisX.Minimum = Convert.ToDateTime("20200531");
                 }
 
-                // Chart Display : 최근 14개만 표시
+                // Chart Display : 최근 displayDayCount개만 표시
                 int tmpStartIndex = 0;
-                if (tmpDate.Count > 14) tmpStartIndex = tmpDate.Count - 14;
+                if (tmpDate.Count > displayDayCount) tmpStartIndex = tmpDate.Count - displayDayCount;
 
                 chart1.Series["Pass"].Points.Clear();
                 chart1.Series["Fail"].Points.Clear();
                 chart1.Series["Yield"].Points.Clear();
 
-                for (int i = 0; i < 14; i++)
+                for (int i = 0; i < displayDayCount; i++)
                 {
-                    string tmpTime = nowTime.AddDays(-14 + i + 1).ToString("yyyy-MM-dd");
+                    string tmpTimeStr = nowTime.AddDays(-displayDayCount + i + 1).ToString("yyyy-MM-dd");
+
+                    DateTime tmpTime = DateTime.Parse(tmpTimeStr);
                     chart1.Series["Pass"].Points.AddXY(tmpTime, tmpOKCount[i]);
                     chart1.Series["Fail"].Points.AddXY(tmpTime, tmpNGCount[i]);
-                    chart1.Series["Yield"].Points.AddXY(tmpTime, (tmpOKCount[i] / (double)(tmpOKCount[i] + tmpNGCount[i]) * 100).ToString("0.00"));
+
+                    if (tmpOKCount[i] + tmpNGCount[i] > 0)
+                    {
+                        chart1.Series["Yield"].Points.AddXY(tmpTime, (tmpOKCount[i] / (double)(tmpOKCount[i] + tmpNGCount[i]) * 100).ToString("0.00"));
+                    }
                 }
 
                 // 원형차트 디스플레이
                 // 원형차트는 금일 생산수량(양품수량)을 표시
-                int TodayOKCount = tmpOKCount[13];
+                int TodayOKCount = tmpOKCount[displayDayCount-1];
                 /*for (int i = 0; i < tmpDate.Count; i++)
                 {
                     if (tmpDate[i].Date == DateTime.Now.Date)

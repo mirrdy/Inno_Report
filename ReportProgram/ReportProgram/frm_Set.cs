@@ -37,6 +37,7 @@ namespace ReportProgram
 
             targetInputBox.Text = mySetting.Target_Count.ToString();
             infoDBConInputBox.Text = mySetting.Info_DBConnection;
+            tbx_DisplayDayCount.Text = mySetting.DisplayDayCount.ToString();
             cbb_StartViewIndex.SelectedIndex = mySetting.StartViewIndex;
             conString = mySetting.Info_DBConnection;
 
@@ -115,6 +116,7 @@ namespace ReportProgram
 
             mySetting.Target_Count = myConvert.StrToIntDef(targetInputBox.Text, 0);
             mySetting.Info_DBConnection = infoDBConInputBox.Text;
+            mySetting.DisplayDayCount = myConvert.StrToIntDef(tbx_DisplayDayCount.Text, 0);
             mySetting.StartViewIndex = cbb_StartViewIndex.SelectedIndex;
 
             mySetting.JobOrder_SlideShow_Time = myConvert.StrToDoubleDef(tbx_SlideShow_Time.Text, 0);

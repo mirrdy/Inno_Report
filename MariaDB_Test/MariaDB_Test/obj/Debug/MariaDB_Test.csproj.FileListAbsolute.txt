@@ -26,3 +26,13 @@ D:\FirstRepository\MariaDB_Test\MariaDB_Test\obj\Debug\MariaDB_Test.Properties.R
 D:\FirstRepository\MariaDB_Test\MariaDB_Test\obj\Debug\MariaDB_Test.csproj.GenerateResource.cache
 D:\FirstRepository\MariaDB_Test\MariaDB_Test\obj\Debug\MariaDB_Test.exe
 D:\FirstRepository\MariaDB_Test\MariaDB_Test\obj\Debug\MariaDB_Test.pdb
+D:\Inno_Report\MariaDB_Test\MariaDB_Test\bin\Debug\MariaDB_Test.exe.config
+D:\Inno_Report\MariaDB_Test\MariaDB_Test\bin\Debug\MariaDB_Test.exe
+D:\Inno_Report\MariaDB_Test\MariaDB_Test\bin\Debug\MariaDB_Test.pdb
+D:\Inno_Report\MariaDB_Test\MariaDB_Test\obj\Debug\MariaDB_Test.csprojAssemblyReference.cache
+D:\Inno_Report\MariaDB_Test\MariaDB_Test\obj\Debug\MariaDB_Test.Form1.resources
+D:\Inno_Report\MariaDB_Test\MariaDB_Test\obj\Debug\MariaDB_Test.Properties.Resources.resources
+D:\Inno_Report\MariaDB_Test\MariaDB_Test\obj\Debug\MariaDB_Test.csproj.GenerateResource.cache
+D:\Inno_Report\MariaDB_Test\MariaDB_Test\obj\Debug\MariaDB_Test.csproj.CoreCompileInputs.cache
+D:\Inno_Report\MariaDB_Test\MariaDB_Test\obj\Debug\MariaDB_Test.exe
+D:\Inno_Report\MariaDB_Test\MariaDB_Test\obj\Debug\MariaDB_Test.pdb

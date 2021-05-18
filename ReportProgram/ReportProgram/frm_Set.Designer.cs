@@ -71,6 +71,8 @@
             this.fdbr_LogPath = new System.Windows.Forms.FolderBrowserDialog();
             this.btn_ChoiceLogPath = new DevExpress.XtraEditors.SimpleButton();
             this.lbl_LogPath = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.tbx_DisplayDayCount = new System.Windows.Forms.TextBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_JobOrder_File_List)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -151,6 +153,8 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.label15);
+            this.groupBox1.Controls.Add(this.tbx_DisplayDayCount);
             this.groupBox1.Controls.Add(this.tbx_Size_H);
             this.groupBox1.Controls.Add(this.label13);
             this.groupBox1.Controls.Add(this.label14);
@@ -486,6 +490,25 @@
             this.lbl_LogPath.Text = "D:\\";
             this.lbl_LogPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label15.Location = new System.Drawing.Point(49, 258);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(91, 17);
+            this.label15.TabIndex = 45;
+            this.label15.Text = "차트표시 일수";
+            // 
+            // tbx_DisplayDayCount
+            // 
+            this.tbx_DisplayDayCount.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.tbx_DisplayDayCount.Location = new System.Drawing.Point(148, 254);
+            this.tbx_DisplayDayCount.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tbx_DisplayDayCount.Name = "tbx_DisplayDayCount";
+            this.tbx_DisplayDayCount.Size = new System.Drawing.Size(100, 25);
+            this.tbx_DisplayDayCount.TabIndex = 46;
+            // 
             // frm_Set
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -556,5 +579,7 @@
         private System.Windows.Forms.FolderBrowserDialog fdbr_LogPath;
         private DevExpress.XtraEditors.SimpleButton btn_ChoiceLogPath;
         private System.Windows.Forms.Label lbl_LogPath;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.TextBox tbx_DisplayDayCount;
     }
 }

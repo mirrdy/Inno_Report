@@ -25,6 +25,7 @@ namespace ReportProgram
 
         public int Target_Count;
         public string Info_DBConnection;
+        public int DisplayDayCount;
 
         public int StartViewIndex;
 
@@ -51,6 +52,7 @@ namespace ReportProgram
 
             Target_Count = 0;
             Info_DBConnection = "MariaDB";
+            DisplayDayCount = 0;
 
             StartViewIndex = 0;
 
@@ -95,16 +97,19 @@ namespace ReportProgram
             // xml 문서에 들어갈 요소 생성
             XmlElement el_Target_Count = doc.CreateElement("Target_Count");
             XmlElement el_Info_DBConnection = doc.CreateElement("Info_DBConnection");
+            XmlElement el_DisplayDayCount = doc.CreateElement("DisplayDayCount");
             XmlElement el_StartViewIndex = doc.CreateElement("StartViewIndex");
 
             // 각각의 요소 내용으로 그에 맞는 객체 속성값을 넣음
             el_Target_Count.InnerText = Target_Count.ToString();
             el_Info_DBConnection.InnerText = Info_DBConnection;
+            el_DisplayDayCount.InnerText = DisplayDayCount.ToString();
             el_StartViewIndex.InnerText = StartViewIndex.ToString();
 
             // 각각 요소들을 xml 최상위부모 밑으로 넣음
             xmlSetting.AppendChild(el_Target_Count);
             xmlSetting.AppendChild(el_Info_DBConnection);
+            xmlSetting.AppendChild(el_DisplayDayCount);
             xmlSetting.AppendChild(el_StartViewIndex);
 
             XmlElement el_JobOrder_SlideShow_Time = doc.CreateElement("JobOrder_SlideShow_Time");
@@ -183,6 +188,7 @@ namespace ReportProgram
             // Daily
             XmlNode node_Target_Count = doc.SelectSingleNode("//Setting/Target_Count");
             XmlNode node_Info_DBConnection = doc.SelectSingleNode("//Setting/Info_DBConnection");
+            XmlNode node_DisplayDayCount = doc.SelectSingleNode("//Setting/DisplayDayCount");
             XmlNode node_StartViewIndex = doc.SelectSingleNode("//Setting/StartViewIndex");
 
             if (node_Target_Count != null)
@@ -192,6 +198,10 @@ namespace ReportProgram
             if (node_Info_DBConnection != null)
             {
                 Info_DBConnection = node_Info_DBConnection.InnerText;
+            }
+            if(node_DisplayDayCount != null)
+            {
+                DisplayDayCount = myConvert.StrToIntDef(node_DisplayDayCount.InnerText, 0);
             }
             if (node_StartViewIndex != null)
             {
