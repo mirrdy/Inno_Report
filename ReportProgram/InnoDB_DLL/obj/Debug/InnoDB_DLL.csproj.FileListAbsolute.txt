@@ -3,10 +3,10 @@ D:\FirstRepository\ReportProgram\InnoDB_DLL\bin\Debug\InnoDB_DLL.pdb
 D:\FirstRepository\ReportProgram\InnoDB_DLL\obj\Debug\InnoDB_DLL.dll
 D:\FirstRepository\ReportProgram\InnoDB_DLL\obj\Debug\InnoDB_DLL.pdb
 D:\FirstRepository\ReportProgram\InnoDB_DLL\obj\Debug\InnoDB_DLL.csproj.CoreCompileInputs.cache
-D:\FirstRepository\ReportProgram\InnoDB_DLL\obj\Debug\InnoDB_DLL.csprojAssemblyReference.cache
 D:\Inno_Report\ReportProgram\InnoDB_DLL\bin\Debug\InnoDB_DLL.dll
 D:\Inno_Report\ReportProgram\InnoDB_DLL\bin\Debug\InnoDB_DLL.pdb
 D:\Inno_Report\ReportProgram\InnoDB_DLL\obj\Debug\InnoDB_DLL.csprojAssemblyReference.cache
 D:\Inno_Report\ReportProgram\InnoDB_DLL\obj\Debug\InnoDB_DLL.csproj.CoreCompileInputs.cache
 D:\Inno_Report\ReportProgram\InnoDB_DLL\obj\Debug\InnoDB_DLL.dll
 D:\Inno_Report\ReportProgram\InnoDB_DLL\obj\Debug\InnoDB_DLL.pdb
+D:\FirstRepository\ReportProgram\InnoDB_DLL\obj\Debug\InnoDB_DLL.csproj.AssemblyReference.cache

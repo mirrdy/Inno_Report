@@ -41,12 +41,13 @@ namespace ReportProgram
 
         private void display_SelectedData(string queryString, string selModel)
         {
+            int StartDataCol = 0;
             string tmpDSN = "dsn=" + mySetting.Info_DBConnection;
             OdbcCommand command = new OdbcCommand(queryString);
 
             selectedDataView.Columns.Clear();
             selectedDataView.Rows.Clear();
-            create_SelectedDgv(tmpDSN, selModel);
+            StartDataCol = create_SelectedDgv(tmpDSN, selModel);
             using (OdbcConnection connection = new OdbcConnection(tmpDSN))
             {
                 command.Connection = connection;
@@ -122,6 +123,18 @@ namespace ReportProgram
                     if (readRow[6].Equals("양품")) selectedDataView[6, selectedDataView.Rows.Count - 1].Style.BackColor = Color.Lime;
                     else if (readRow[6].Equals("불량")) selectedDataView[6, selectedDataView.Rows.Count - 1].Style.BackColor = Color.Red;
                 }
+
+                // Gridview Col 보여주기
+                List<bool> ModelViewList = Get_Model_ViewList(selModel);
+                for(int i = 0; i < ModelViewList.Count; i++)
+                {
+                    if (ModelViewList[i] == false && selectedDataView.Columns.Count > ((i * 3) + 2 + StartDataCol))
+                    {
+                        selectedDataView.Columns[(i * 3) + StartDataCol].Visible = false;
+                        selectedDataView.Columns[(i * 3) + 1 + StartDataCol].Visible = false;
+                        selectedDataView.Columns[(i * 3) + 2 + StartDataCol].Visible = false;
+                    }
+                }
             }
             selectedDataView.ColumnHeadersDefaultCellStyle.Font = new System.Drawing.Font("맑은 고딕", 10/*, FontStyle.Bold*/); // 한글을 진하게 하면 자동너비조정이 잘 안됨
             selectedDataView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.AllCells; // 너비 자동조절
@@ -137,10 +150,12 @@ namespace ReportProgram
             }
         }
 
-        private void create_SelectedDgv(string ConnectionString, string model_name)
+        private int create_SelectedDgv(string ConnectionString, string model_name)
         {
+            int StartDataColIndex = 0;
+
             selectedDataView.DoubleBuffered(true);
-            for (int i=0; i<8; i++)
+            for (int i = 0; i < 8; i++)
             {
                 if (mySetting.HeaderDisplay[i] == false) continue;
 
@@ -171,6 +186,7 @@ namespace ReportProgram
                         selectedDataView.Columns.Add("Total_result", mySetting.HeaderName[i]);
                         break;
                 }
+                StartDataColIndex++;
 
                 int tmpColumnCount = selectedDataView.Columns.Count - 1;
 
@@ -184,45 +200,48 @@ namespace ReportProgram
             if (model_name == "")
             {
                 selectedDataView.Columns.Add("Test_Data", "Test_Data");
-                return;
             }
             else if (model_name != "")
+            {                
                 queryString += " where name='" + model_name + "'";
 
-            OdbcCommand command = new OdbcCommand(queryString);
+                OdbcCommand command = new OdbcCommand(queryString);
 
-            using (OdbcConnection connection = new OdbcConnection(ConnectionString))
-            {
-                command.Connection = connection;
-                connection.Open();
-                OdbcDataReader dr = command.ExecuteReader();
-
-                while (dr.Read())
+                using (OdbcConnection connection = new OdbcConnection(ConnectionString))
                 {
-                    string[] dataHeader = dr["data_header"].ToString().Split(';');
+                    command.Connection = connection;
+                    connection.Open();
+                    OdbcDataReader dr = command.ExecuteReader();
 
-                    for (int i = 0; i < dataHeader.Length; i++)
+                    while (dr.Read())
                     {
-                        if (parsingData.Contains(dataHeader[i]))
-                            continue;
-                        else if (dataHeader[i].Equals(""))
-                            break;
-                        else
+                        string[] dataHeader = dr["data_header"].ToString().Split(';');
+
+                        for (int i = 0; i < dataHeader.Length; i++)
                         {
-                            parsingData.Add(dataHeader[i]);
-                            parsingData.Add("단위");
-                            parsingData.Add("결과");
+                            if (dataHeader[i].Equals(""))
+                            {
+                                continue;
+                            }
+                            else
+                            {
+                                parsingData.Add(dataHeader[i]);
+                                parsingData.Add("단위");
+                                parsingData.Add("결과");
+                            }
                         }
                     }
+                    foreach (string parsingStr in parsingData)
+                    {
+                        selectedDataView.Columns.Add(parsingStr, parsingStr);
+                        selectedDataView.Columns[selectedDataView.Columns.Count - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
+                        selectedDataView.Columns[selectedDataView.Columns.Count - 1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                    }
+                    selectedDataView.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
-                foreach (string parsingStr in parsingData)
-                {
-                    selectedDataView.Columns.Add(parsingStr, parsingStr);
-                    selectedDataView.Columns[selectedDataView.Columns.Count - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                    selectedDataView.Columns[selectedDataView.Columns.Count - 1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
-                }
-                selectedDataView.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
             }
+
+            return StartDataColIndex;
         }
         
 
@@ -661,6 +680,28 @@ namespace ReportProgram
         private void btn_DetailData_Click(object sender, EventArgs e)
         {
             new frm_DetailData(selectedDataView).ShowDialog();
+        }
+
+        private List<bool> Get_Model_ViewList(string ModelName)
+        {
+            List<bool> GetList = new List<bool>();
+
+            foreach(string tmpValue in mySetting.Model_Header_View)
+            {
+                if(tmpValue.StartsWith(ModelName) == true)
+                {
+                    string[] tmpSplit = tmpValue.Split(';');
+                    for(int i = 1; i < tmpSplit.Length; i++)
+                    {
+                        if(tmpSplit[i].Length > 0)
+                        {
+                            GetList.Add(myConvert.StrToBoolDef(tmpSplit[i], false));
+                        }
+                    }
+                }
+            }
+
+            return GetList;
         }
     }
     public static class ExtensionMethods

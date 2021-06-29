@@ -29,10 +29,10 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_Set));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle9 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle10 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle11 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle12 = new System.Windows.Forms.DataGridViewCellStyle();
             this.label1 = new System.Windows.Forms.Label();
             this.btn_Apply = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
@@ -42,6 +42,8 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.label15 = new System.Windows.Forms.Label();
+            this.tbx_DisplayDayCount = new System.Windows.Forms.TextBox();
             this.tbx_Size_H = new System.Windows.Forms.TextBox();
             this.label13 = new System.Windows.Forms.Label();
             this.label14 = new System.Windows.Forms.Label();
@@ -71,8 +73,9 @@
             this.fdbr_LogPath = new System.Windows.Forms.FolderBrowserDialog();
             this.btn_ChoiceLogPath = new DevExpress.XtraEditors.SimpleButton();
             this.lbl_LogPath = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.tbx_DisplayDayCount = new System.Windows.Forms.TextBox();
+            this.chklst_HeaderVisible = new System.Windows.Forms.CheckedListBox();
+            this.label16 = new System.Windows.Forms.Label();
+            this.cbb_ModelList = new System.Windows.Forms.ComboBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_JobOrder_File_List)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -94,10 +97,10 @@
             this.btn_Apply.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.btn_Apply.Image = ((System.Drawing.Image)(resources.GetObject("btn_Apply.Image")));
             this.btn_Apply.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_Apply.Location = new System.Drawing.Point(498, 447);
+            this.btn_Apply.Location = new System.Drawing.Point(12, 843);
             this.btn_Apply.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.btn_Apply.Name = "btn_Apply";
-            this.btn_Apply.Size = new System.Drawing.Size(167, 42);
+            this.btn_Apply.Size = new System.Drawing.Size(772, 38);
             this.btn_Apply.TabIndex = 6;
             this.btn_Apply.Text = "적 용";
             this.btn_Apply.UseVisualStyleBackColor = false;
@@ -153,7 +156,12 @@
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.cbb_ModelList);
+            this.groupBox1.Controls.Add(this.label16);
+            this.groupBox1.Controls.Add(this.chklst_HeaderVisible);
             this.groupBox1.Controls.Add(this.label15);
+            this.groupBox1.Controls.Add(this.btn_ChoiceLogPath);
+            this.groupBox1.Controls.Add(this.lbl_LogPath);
             this.groupBox1.Controls.Add(this.tbx_DisplayDayCount);
             this.groupBox1.Controls.Add(this.tbx_Size_H);
             this.groupBox1.Controls.Add(this.label13);
@@ -175,10 +183,29 @@
             this.groupBox1.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.groupBox1.Location = new System.Drawing.Point(12, 12);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(298, 424);
+            this.groupBox1.Size = new System.Drawing.Size(772, 409);
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "프로그램 옵션 설정";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label15.Location = new System.Drawing.Point(49, 258);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(91, 17);
+            this.label15.TabIndex = 45;
+            this.label15.Text = "차트표시 일수";
+            // 
+            // tbx_DisplayDayCount
+            // 
+            this.tbx_DisplayDayCount.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.tbx_DisplayDayCount.Location = new System.Drawing.Point(148, 254);
+            this.tbx_DisplayDayCount.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.tbx_DisplayDayCount.Name = "tbx_DisplayDayCount";
+            this.tbx_DisplayDayCount.Size = new System.Drawing.Size(100, 25);
+            this.tbx_DisplayDayCount.TabIndex = 46;
             // 
             // tbx_Size_H
             // 
@@ -301,17 +328,17 @@
             this.dgv_JobOrder_File_List.AllowUserToDeleteRows = false;
             this.dgv_JobOrder_File_List.AllowUserToResizeColumns = false;
             this.dgv_JobOrder_File_List.AllowUserToResizeRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.Color.White;
-            this.dgv_JobOrder_File_List.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle9.BackColor = System.Drawing.Color.White;
+            this.dgv_JobOrder_File_List.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle9;
             this.dgv_JobOrder_File_List.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Silver;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.dgv_JobOrder_File_List.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle10.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle10.BackColor = System.Drawing.Color.Silver;
+            dataGridViewCellStyle10.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle10.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle10.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle10.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle10.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.dgv_JobOrder_File_List.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle10;
             this.dgv_JobOrder_File_List.ColumnHeadersHeight = 25;
             this.dgv_JobOrder_File_List.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.DisableResizing;
             this.dgv_JobOrder_File_List.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
@@ -324,9 +351,9 @@
             this.dgv_JobOrder_File_List.ReadOnly = true;
             this.dgv_JobOrder_File_List.RowHeadersVisible = false;
             this.dgv_JobOrder_File_List.RowHeadersWidth = 51;
-            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Info;
-            dataGridViewCellStyle3.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.dgv_JobOrder_File_List.RowsDefaultCellStyle = dataGridViewCellStyle3;
+            dataGridViewCellStyle11.BackColor = System.Drawing.SystemColors.Info;
+            dataGridViewCellStyle11.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.dgv_JobOrder_File_List.RowsDefaultCellStyle = dataGridViewCellStyle11;
             this.dgv_JobOrder_File_List.RowTemplate.DefaultCellStyle.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
             this.dgv_JobOrder_File_List.RowTemplate.Height = 20;
             this.dgv_JobOrder_File_List.SelectionMode = System.Windows.Forms.DataGridViewSelectionMode.CellSelect;
@@ -361,7 +388,7 @@
             this.groupBox2.Controls.Add(this.label6);
             this.groupBox2.Controls.Add(this.dgv_JobOrder_File_List);
             this.groupBox2.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.groupBox2.Location = new System.Drawing.Point(374, 12);
+            this.groupBox2.Location = new System.Drawing.Point(12, 427);
             this.groupBox2.Name = "groupBox2";
             this.groupBox2.Size = new System.Drawing.Size(407, 409);
             this.groupBox2.TabIndex = 18;
@@ -412,9 +439,9 @@
             // 
             this.groupBox3.Controls.Add(this.dgv_BasicDisplay);
             this.groupBox3.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold);
-            this.groupBox3.Location = new System.Drawing.Point(803, 15);
+            this.groupBox3.Location = new System.Drawing.Point(425, 427);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(510, 567);
+            this.groupBox3.Size = new System.Drawing.Size(359, 409);
             this.groupBox3.TabIndex = 19;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "기본 데이터 표시";
@@ -427,19 +454,19 @@
             this.Column1,
             this.Column2,
             this.Column3});
-            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
-            dataGridViewCellStyle4.BackColor = System.Drawing.SystemColors.Window;
-            dataGridViewCellStyle4.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold);
-            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.ControlText;
-            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
-            this.dgv_BasicDisplay.DefaultCellStyle = dataGridViewCellStyle4;
+            dataGridViewCellStyle12.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleCenter;
+            dataGridViewCellStyle12.BackColor = System.Drawing.SystemColors.Window;
+            dataGridViewCellStyle12.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold);
+            dataGridViewCellStyle12.ForeColor = System.Drawing.SystemColors.ControlText;
+            dataGridViewCellStyle12.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle12.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle12.WrapMode = System.Windows.Forms.DataGridViewTriState.False;
+            this.dgv_BasicDisplay.DefaultCellStyle = dataGridViewCellStyle12;
             this.dgv_BasicDisplay.Location = new System.Drawing.Point(6, 26);
             this.dgv_BasicDisplay.Name = "dgv_BasicDisplay";
             this.dgv_BasicDisplay.RowHeadersWidth = 30;
             this.dgv_BasicDisplay.RowTemplate.Height = 23;
-            this.dgv_BasicDisplay.Size = new System.Drawing.Size(481, 533);
+            this.dgv_BasicDisplay.Size = new System.Drawing.Size(342, 376);
             this.dgv_BasicDisplay.TabIndex = 0;
             // 
             // Column1
@@ -470,53 +497,62 @@
             this.btn_ChoiceLogPath.ImageOptions.ImageToTextAlignment = DevExpress.XtraEditors.ImageAlignToText.LeftCenter;
             this.btn_ChoiceLogPath.ImageOptions.Location = DevExpress.XtraEditors.ImageLocation.TopCenter;
             this.btn_ChoiceLogPath.ImageOptions.SvgImage = ((DevExpress.Utils.Svg.SvgImage)(resources.GetObject("btn_ChoiceLogPath.ImageOptions.SvgImage")));
-            this.btn_ChoiceLogPath.Location = new System.Drawing.Point(498, 533);
+            this.btn_ChoiceLogPath.Location = new System.Drawing.Point(496, 356);
             this.btn_ChoiceLogPath.Name = "btn_ChoiceLogPath";
             this.btn_ChoiceLogPath.ShowFocusRectangle = DevExpress.Utils.DefaultBoolean.False;
-            this.btn_ChoiceLogPath.Size = new System.Drawing.Size(174, 41);
+            this.btn_ChoiceLogPath.Size = new System.Drawing.Size(174, 32);
             this.btn_ChoiceLogPath.TabIndex = 20;
             this.btn_ChoiceLogPath.Text = "로그파일 위치 선택";
             this.btn_ChoiceLogPath.Click += new System.EventHandler(this.btn_ChoiceLogPath_Click);
             // 
             // lbl_LogPath
             // 
-            this.lbl_LogPath.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(80)))), ((int)(((byte)(80)))), ((int)(((byte)(80)))));
-            this.lbl_LogPath.Font = new System.Drawing.Font("맑은 고딕", 15.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.lbl_LogPath.ForeColor = System.Drawing.Color.FromArgb(((int)(((byte)(255)))), ((int)(((byte)(158)))), ((int)(((byte)(50)))));
-            this.lbl_LogPath.Location = new System.Drawing.Point(12, 530);
+            this.lbl_LogPath.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(224)))), ((int)(((byte)(224)))), ((int)(((byte)(224)))));
+            this.lbl_LogPath.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lbl_LogPath.ForeColor = System.Drawing.Color.Black;
+            this.lbl_LogPath.Location = new System.Drawing.Point(10, 357);
             this.lbl_LogPath.Name = "lbl_LogPath";
-            this.lbl_LogPath.Size = new System.Drawing.Size(480, 44);
+            this.lbl_LogPath.Size = new System.Drawing.Size(480, 32);
             this.lbl_LogPath.TabIndex = 21;
             this.lbl_LogPath.Text = "D:\\";
             this.lbl_LogPath.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
             // 
-            // label15
+            // chklst_HeaderVisible
             // 
-            this.label15.AutoSize = true;
-            this.label15.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.label15.Location = new System.Drawing.Point(49, 258);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(91, 17);
-            this.label15.TabIndex = 45;
-            this.label15.Text = "차트표시 일수";
+            this.chklst_HeaderVisible.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.chklst_HeaderVisible.FormattingEnabled = true;
+            this.chklst_HeaderVisible.Location = new System.Drawing.Point(396, 65);
+            this.chklst_HeaderVisible.Name = "chklst_HeaderVisible";
+            this.chklst_HeaderVisible.Size = new System.Drawing.Size(351, 274);
+            this.chklst_HeaderVisible.TabIndex = 22;
+            this.chklst_HeaderVisible.SelectedValueChanged += new System.EventHandler(this.chklst_HeaderVisible_SelectedValueChanged);
             // 
-            // tbx_DisplayDayCount
+            // label16
             // 
-            this.tbx_DisplayDayCount.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.tbx_DisplayDayCount.Location = new System.Drawing.Point(148, 254);
-            this.tbx_DisplayDayCount.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.tbx_DisplayDayCount.Name = "tbx_DisplayDayCount";
-            this.tbx_DisplayDayCount.Size = new System.Drawing.Size(100, 25);
-            this.tbx_DisplayDayCount.TabIndex = 46;
+            this.label16.AutoSize = true;
+            this.label16.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.label16.Location = new System.Drawing.Point(393, 44);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(96, 17);
+            this.label16.TabIndex = 47;
+            this.label16.Text = "레포트 뷰 편집";
+            // 
+            // cbb_ModelList
+            // 
+            this.cbb_ModelList.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.cbb_ModelList.FormattingEnabled = true;
+            this.cbb_ModelList.Location = new System.Drawing.Point(496, 41);
+            this.cbb_ModelList.Name = "cbb_ModelList";
+            this.cbb_ModelList.Size = new System.Drawing.Size(251, 23);
+            this.cbb_ModelList.TabIndex = 48;
+            this.cbb_ModelList.SelectedIndexChanged += new System.EventHandler(this.cbb_ModelList_SelectedIndexChanged);
             // 
             // frm_Set
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Control;
-            this.ClientSize = new System.Drawing.Size(1421, 594);
-            this.Controls.Add(this.lbl_LogPath);
-            this.Controls.Add(this.btn_ChoiceLogPath);
+            this.ClientSize = new System.Drawing.Size(793, 892);
             this.Controls.Add(this.groupBox3);
             this.Controls.Add(this.groupBox2);
             this.Controls.Add(this.groupBox1);
@@ -581,5 +617,8 @@
         private System.Windows.Forms.Label lbl_LogPath;
         private System.Windows.Forms.Label label15;
         private System.Windows.Forms.TextBox tbx_DisplayDayCount;
+        private System.Windows.Forms.ComboBox cbb_ModelList;
+        private System.Windows.Forms.Label label16;
+        private System.Windows.Forms.CheckedListBox chklst_HeaderVisible;
     }
 }

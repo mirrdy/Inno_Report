@@ -3,7 +3,6 @@ D:\FirstRepository\ReportProgram\TestDLL\bin\Debug\TestDLL.exe
 D:\FirstRepository\ReportProgram\TestDLL\bin\Debug\TestDLL.pdb
 D:\FirstRepository\ReportProgram\TestDLL\bin\Debug\InnoDB_DLL.dll
 D:\FirstRepository\ReportProgram\TestDLL\bin\Debug\InnoDB_DLL.pdb
-D:\FirstRepository\ReportProgram\TestDLL\obj\Debug\TestDLL.csprojAssemblyReference.cache
 D:\FirstRepository\ReportProgram\TestDLL\obj\Debug\TestDLL.Properties.Resources.resources
 D:\FirstRepository\ReportProgram\TestDLL\obj\Debug\TestDLL.csproj.GenerateResource.cache
 D:\FirstRepository\ReportProgram\TestDLL\obj\Debug\TestDLL.csproj.CopyComplete
@@ -24,3 +23,4 @@ D:\Inno_Report\ReportProgram\TestDLL\obj\Debug\TestDLL.csproj.CoreCompileInputs.
 D:\Inno_Report\ReportProgram\TestDLL\obj\Debug\TestDLL.csproj.CopyComplete
 D:\Inno_Report\ReportProgram\TestDLL\obj\Debug\TestDLL.exe
 D:\Inno_Report\ReportProgram\TestDLL\obj\Debug\TestDLL.pdb
+D:\FirstRepository\ReportProgram\TestDLL\obj\Debug\TestDLL.csproj.AssemblyReference.cache

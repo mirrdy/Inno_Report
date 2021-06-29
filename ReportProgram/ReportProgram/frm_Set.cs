@@ -155,6 +155,7 @@ namespace ReportProgram
         private void frm_Set_Load(object sender, EventArgs e)
         {
             loadMySetting();
+            Get_ModelList();
         }
 
         private void dgv_JobOrder_File_List_KeyDown(object sender, KeyEventArgs e)
@@ -181,6 +182,142 @@ namespace ReportProgram
                 DisplaySpec(Const.OpenFileName);
                 InitDisplayData();
             }*/
+        }
+
+        private void Get_ModelList()
+        {
+            string tmpConnName = "dsn=" + mySetting.Info_DBConnection;
+            string querystring = "select * from model order by name asc";
+            OdbcCommand command = new OdbcCommand(querystring);
+
+            cbb_ModelList.Items.Clear();
+            using (OdbcConnection connection = new OdbcConnection(tmpConnName))
+            {
+                command.Connection = connection;
+                connection.Open();
+                OdbcDataReader dr = command.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    cbb_ModelList.Items.Add(dr["name"]);
+                }
+
+                if (cbb_ModelList.Items.Count > 0) cbb_ModelList.SelectedIndex = 0;
+            }
+        }
+
+        private void cbb_ModelList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            bool ModelSearchFlg = false;
+            string tmpStr = "";
+            chklst_HeaderVisible.Items.Clear();
+            List<string> ColList = Get_HeaderList(cbb_ModelList.Text);
+            
+            for(int i = 0; i < mySetting.Model_Header_View.Count; i++)
+            {
+                if(mySetting.Model_Header_View[i].StartsWith(cbb_ModelList.Text) == true)
+                {
+                    tmpStr = mySetting.Model_Header_View[i];
+                    ModelSearchFlg = true;
+                    break;
+                }
+            }
+
+            if (ModelSearchFlg == false)
+            {
+                tmpStr = cbb_ModelList.Text + ";";
+                foreach (string tmpValue in ColList)
+                {
+                    tmpStr += "True;";
+                    chklst_HeaderVisible.Items.Add(tmpValue, true);
+                }
+                mySetting.Model_Header_View.Add(tmpStr);
+            }
+            else
+            {
+                string[] tmpSplit = tmpStr.Split(';');
+                int index = 1;  // 0은 모델명
+
+                foreach (string tmpValue in ColList)
+                {
+                    if (tmpSplit.Length > index)
+                    {
+                        chklst_HeaderVisible.Items.Add(tmpValue, myConvert.StrToBoolDef(tmpSplit[index], true));
+                        index++;
+                    }
+                    else
+                    {
+                        chklst_HeaderVisible.Items.Add(tmpValue, true);
+                    }
+                }
+            }
+        }
+
+        private List<string> Get_HeaderList(string ModelName)
+        {
+            List<string> tmpHeaderList = new List<string>();
+            if (ModelName.Length == 0)
+            {
+                MessageBox.Show("모델을 선택해 주세요. (모델이름 == null)");
+                return tmpHeaderList;
+            }
+
+            string tmpConnName = "dsn=" + mySetting.Info_DBConnection;
+            string queryString = "Select * from model where name='" + ModelName + "'";
+            OdbcCommand command = new OdbcCommand(queryString);
+            using (OdbcConnection connection = new OdbcConnection(tmpConnName))
+            {
+                command.Connection = connection;
+                connection.Open();
+                OdbcDataReader dr = command.ExecuteReader();
+
+                while (dr.Read())
+                {
+                    string[] dataHeader = dr["data_header"].ToString().Split(';');
+
+                    for (int i = 0; i < dataHeader.Length; i++)
+                    {
+                        if (dataHeader[i].Equals("")) continue;
+                        else tmpHeaderList.Add(dataHeader[i]);
+                    }
+                }
+            }
+
+
+            return tmpHeaderList;
+        }
+
+        private void chklst_HeaderVisible_SelectedValueChanged(object sender, EventArgs e)
+        {
+            bool ModelSearchFlg = false;
+            string tmpStr = "";
+            int SearchIndex = -1;
+
+            for (int i = 0; i < mySetting.Model_Header_View.Count; i++)
+            {
+                if (mySetting.Model_Header_View[i].StartsWith(cbb_ModelList.Text) == true)
+                {
+                    SearchIndex = i;
+                    ModelSearchFlg = true;
+                    break;
+                }
+            }
+
+            tmpStr = cbb_ModelList.Text + ";";
+            for(int i = 0; i < chklst_HeaderVisible.Items.Count; i++)
+            {
+                if(chklst_HeaderVisible.GetItemChecked(i) == true) tmpStr += "True;";
+                else tmpStr += "False;";
+            }
+
+            if (ModelSearchFlg == false)
+            {
+                mySetting.Model_Header_View.Add(tmpStr);
+            }
+            else
+            {
+                mySetting.Model_Header_View[SearchIndex] = tmpStr;
+            }
         }
     }
 }

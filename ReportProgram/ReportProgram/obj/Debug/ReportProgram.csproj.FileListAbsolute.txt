@@ -37,7 +37,6 @@ D:\FirstRepository\ReportProgram\ReportProgram\obj\Debug\ReportProgram.exe
 D:\FirstRepository\ReportProgram\ReportProgram\obj\Debug\ReportProgram.pdb
 D:\FirstRepository\ReportProgram\ReportProgram\obj\Debug\ReportProgram.csproj.CoreCompileInputs.cache
 D:\FirstRepository\ReportProgram\ReportProgram\obj\Debug\ReportProgram.frm_JobOrder.resources
-D:\FirstRepository\ReportProgram\ReportProgram\obj\Debug\ReportProgram.csprojAssemblyReference.cache
 C:\Users\oldma\Desktop\dev\ReportProgram\ReportProgram\obj\Debug\ReportProgram.csprojAssemblyReference.cache
 C:\Users\oldma\Desktop\dev\ReportProgram\ReportProgram\obj\Debug\ReportProgram.csproj.ResolveComReference.cache
 C:\Users\oldma\Desktop\dev\ReportProgram\ReportProgram\obj\Debug\ReportProgram.frm_DataManage.resources
@@ -207,3 +206,4 @@ D:\Inno_Report\ReportProgram\ReportProgram\obj\Debug\ReportProgram.csproj.CoreCo
 D:\Inno_Report\ReportProgram\ReportProgram\obj\Debug\ReportProgram.csproj.CopyComplete
 D:\Inno_Report\ReportProgram\ReportProgram\obj\Debug\ReportProgram.exe
 D:\Inno_Report\ReportProgram\ReportProgram\obj\Debug\ReportProgram.pdb
+D:\FirstRepository\ReportProgram\ReportProgram\obj\Debug\ReportProgram.csproj.AssemblyReference.cache

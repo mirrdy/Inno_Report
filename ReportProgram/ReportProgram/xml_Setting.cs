@@ -38,6 +38,10 @@ namespace ReportProgram
 
         public string LogPath;
 
+        // Model View List
+        public int ModelCount = 0;
+        public List<string> Model_Header_View = new List<string>();
+
         public xml_Setting()
         {
             Setting_Init();
@@ -67,6 +71,10 @@ namespace ReportProgram
                 HeaderWidth[i] = 70;
             }
             LogPath = @"D:\";
+
+            // Model View List
+            ModelCount = 0;
+            Model_Header_View.Clear();
         }
         public void Setting_Save_Xml(string FilePath)
         {
@@ -144,6 +152,18 @@ namespace ReportProgram
             XmlElement el_LogPath = doc.CreateElement("LogPath");
             el_LogPath.InnerText = LogPath;
             xmlSetting.AppendChild(el_LogPath);
+
+            // 모델별 View 항목 리스트
+            ModelCount = Model_Header_View.Count;
+            XmlElement el_ModelCount = doc.CreateElement("ModelCount");
+            el_ModelCount.InnerText = ModelCount.ToString();
+            xmlSetting.AppendChild(el_ModelCount);
+            for (int i = 0; i < ModelCount; i++)
+            {
+                XmlElement el_Model_Header_View = doc.CreateElement("Model_Header_View" + (i + 1).ToString());
+                el_Model_Header_View.InnerText = Model_Header_View[i];
+                xmlSetting.AppendChild(el_Model_Header_View);
+            }
 
             // 최상위 헤더를 문서에 넣음
             doc.AppendChild(xmlSetting);
@@ -246,6 +266,21 @@ namespace ReportProgram
             if(node_LogPath != null)
             {
                 LogPath = node_LogPath.InnerText;
+            }
+
+            // 모델별 View 항목 리스트
+            XmlNode node_ModelCount = doc.SelectSingleNode("//Setting/ModelCount");
+            if (node_ModelCount != null)
+            {
+                ModelCount = myConvert.StrToIntDef(node_ModelCount.InnerText, 0);
+            }
+            for (int i = 0 ; i < ModelCount; i++)
+            {
+                XmlNode node_Model_Header_View = doc.SelectSingleNode("//Setting/Model_Header_View" + (i + 1).ToString());
+                if (node_Model_Header_View != null)
+                {
+                    Model_Header_View.Add(node_Model_Header_View.InnerText);
+                }
             }
         }
     }
