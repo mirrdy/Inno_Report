@@ -34,7 +34,11 @@ namespace TestDLL
 
         private void button1_Click(object sender, EventArgs e)
         {
-            myDB.Add_TestData("CN7", "ABC", DateTime.Now, DateTime.Now.AddMinutes(0.5), SerialNumber++.ToString("0000"), "1231242314", "양품", "OK; OK;3.5;43.0;");
+            if (InnoDB.ErrorCode.Suecces != myDB.Add_TestData("CN7", "ABC", DateTime.Now, DateTime.Now.AddMinutes(0.5), SerialNumber++.ToString("0000"), "1231242314", "양품", "OK; OK;3.5;43.0;"))
+            {
+                string tmpErrorStr = myDB.Get_ErrorMessage();
+                MessageBox.Show(tmpErrorStr);
+            }
         }
 
         private void btn_AddModel_Click(object sender, EventArgs e)
