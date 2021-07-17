@@ -43,11 +43,15 @@ namespace ReportProgram
             this.label3 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
+            this.pnl_Loading = new System.Windows.Forms.Panel();
+            this.lbl_LoadingMsg = new System.Windows.Forms.Label();
             this.groupBox1.SuspendLayout();
+            this.pnl_Loading.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
             // 
+            this.groupBox1.Controls.Add(this.pnl_Loading);
             this.groupBox1.Controls.Add(this.dtp_EndDate);
             this.groupBox1.Controls.Add(this.label4);
             this.groupBox1.Controls.Add(this.dtp_StartDate);
@@ -196,6 +200,25 @@ namespace ReportProgram
             this.label1.TabIndex = 0;
             this.label1.Text = "기간";
             // 
+            // pnl_Loading
+            // 
+            this.pnl_Loading.BackColor = System.Drawing.Color.Yellow;
+            this.pnl_Loading.Controls.Add(this.lbl_LoadingMsg);
+            this.pnl_Loading.Location = new System.Drawing.Point(95, 71);
+            this.pnl_Loading.Name = "pnl_Loading";
+            this.pnl_Loading.Size = new System.Drawing.Size(379, 66);
+            this.pnl_Loading.TabIndex = 13;
+            // 
+            // lbl_LoadingMsg
+            // 
+            this.lbl_LoadingMsg.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.lbl_LoadingMsg.Location = new System.Drawing.Point(19, 19);
+            this.lbl_LoadingMsg.Name = "lbl_LoadingMsg";
+            this.lbl_LoadingMsg.Size = new System.Drawing.Size(341, 29);
+            this.lbl_LoadingMsg.TabIndex = 0;
+            this.lbl_LoadingMsg.Text = "데이터 로딩중...";
+            this.lbl_LoadingMsg.TextAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            // 
             // frm_SelectData
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -210,6 +233,7 @@ namespace ReportProgram
             this.Load += new System.EventHandler(this.frm_SelectData_Load);
             this.groupBox1.ResumeLayout(false);
             this.groupBox1.PerformLayout();
+            this.pnl_Loading.ResumeLayout(false);
             this.ResumeLayout(false);
 
         }
@@ -229,5 +253,7 @@ namespace ReportProgram
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Panel pnl_Loading;
+        private System.Windows.Forms.Label lbl_LoadingMsg;
     }
 }

@@ -109,8 +109,8 @@ namespace ReportProgram
                                 string[] parsedDetail = parsedStr.Split(',');
                                 foreach(string detailStr in parsedDetail)
                                 {
-                                    readRow.Add(detailStr);
-                                    if(parsedDetail.Length <= 1)
+                                    readRow.Add(detailStr);                                    
+                                    if(parsedDetail.Length <= 1 && mySetting.Unit_Display == true)
                                     {
                                         readRow.Add("-");
                                         readRow.Add("-");
@@ -131,8 +131,11 @@ namespace ReportProgram
                     if (ModelViewList[i] == false && selectedDataView.Columns.Count > ((i * 3) + 2 + StartDataCol))
                     {
                         selectedDataView.Columns[(i * 3) + StartDataCol].Visible = false;
-                        selectedDataView.Columns[(i * 3) + 1 + StartDataCol].Visible = false;
-                        selectedDataView.Columns[(i * 3) + 2 + StartDataCol].Visible = false;
+                        if(mySetting.Unit_Display == true)
+                        {
+                            selectedDataView.Columns[(i * 3) + 1 + StartDataCol].Visible = false;
+                            selectedDataView.Columns[(i * 3) + 2 + StartDataCol].Visible = false;
+                        }
                     }
                 }
             }
@@ -154,7 +157,8 @@ namespace ReportProgram
         {
             int StartDataColIndex = 0;
 
-            selectedDataView.DoubleBuffered(true);
+            selectedDataView.ScrollBars = ScrollBars.None;
+            selectedDataView.SuspendLayout();
             for (int i = 0; i < 8; i++)
             {
                 if (mySetting.HeaderDisplay[i] == false) continue;
@@ -226,21 +230,30 @@ namespace ReportProgram
                             else
                             {
                                 parsingData.Add(dataHeader[i]);
-                                parsingData.Add("단위");
-                                parsingData.Add("결과");
+                                if(mySetting.Unit_Display == true)
+                                {
+                                    parsingData.Add("단위");
+                                    parsingData.Add("결과");
+                                }
                             }
                         }
                     }
-                    foreach (string parsingStr in parsingData)
+
+                    DataGridViewTextBoxColumn[] tmpColum = new DataGridViewTextBoxColumn[parsingData.Count];
+                    for(int i = 0; i < parsingData.Count; i++)
                     {
-                        selectedDataView.Columns.Add(parsingStr, parsingStr);
-                        selectedDataView.Columns[selectedDataView.Columns.Count - 1].AutoSizeMode = DataGridViewAutoSizeColumnMode.AllCells;
-                        selectedDataView.Columns[selectedDataView.Columns.Count - 1].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
+                        tmpColum[i] = new DataGridViewTextBoxColumn();
+                        tmpColum[i].Name = "Col" + i.ToString();
+                        tmpColum[i].HeaderText = parsingData[i];
+                        tmpColum[i].AutoSizeMode = DataGridViewAutoSizeColumnMode.None;
+                        tmpColum[i].DefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleRight;
                     }
+                    selectedDataView.Columns.AddRange(tmpColum);
                     selectedDataView.ColumnHeadersDefaultCellStyle.Alignment = DataGridViewContentAlignment.MiddleCenter;
                 }
             }
-
+            selectedDataView.ScrollBars = ScrollBars.Both;
+            selectedDataView.ResumeLayout();
             return StartDataColIndex;
         }
         
@@ -344,7 +357,8 @@ namespace ReportProgram
                 for (int j = 0; j < selectedDataView.ColumnCount; j++)
                 {
                     var cell = row.CreateCell(j);
-                    cell.SetCellValue(selectedDataView.Rows[i].Cells[j].Value.ToString());
+                    if (selectedDataView.Rows[i].Cells[j].Value == null) cell.SetCellValue("");
+                    else cell.SetCellValue(selectedDataView.Rows[i].Cells[j].Value.ToString());
                     if (i % 2 == 0)
                         cell.CellStyle = DefaultStyle_Even;
                     else
@@ -702,6 +716,11 @@ namespace ReportProgram
             }
 
             return GetList;
+        }
+
+        private void frm_DataManage_Load(object sender, EventArgs e)
+        {
+            selectedDataView.DoubleBuffered(true);
         }
     }
     public static class ExtensionMethods

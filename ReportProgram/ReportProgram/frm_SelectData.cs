@@ -27,6 +27,10 @@ namespace ReportProgram
 
         private void frm_SelectData_Load(object sender, EventArgs e)
         {
+            pnl_Loading.Location = new Point(95, 71);
+            pnl_Loading.BringToFront();
+            pnl_Loading.Visible = false;
+
             loadMySetting();
             addComboBox(conString);
         }
@@ -101,6 +105,7 @@ namespace ReportProgram
             string queryString = "";
             string tmpQuery = "";
 
+            LoadingMsg_Display(true);
             for (int i = 0; i < ((dtp_EndDate.Value.Year - dtp_StartDate.Value.Year) * 12) + (dtp_EndDate.Value.Month - dtp_StartDate.Value.Month) + 1; i++)
             {
                 int tableYear = dtp_StartDate.Value.Year;
@@ -127,6 +132,8 @@ namespace ReportProgram
             if (queryString != "")
                 queryString += "order by Start_time asc, End_time asc "; // 은성 수정사항
             this.sendData(queryString, cbx_SelModel.Text);
+            
+            LoadingMsg_Display(false);
         }
 
         private string getSelectQuery(string tableName)
@@ -163,6 +170,16 @@ namespace ReportProgram
         private void btn_CancleSelect_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void LoadingMsg_Display(bool OnOff)
+        {
+            pnl_Loading.Location = new Point(95, 71);
+            pnl_Loading.BringToFront();
+            btn_ConfirmSelect.Enabled = !OnOff;
+            btn_CancleSelect.Enabled = !OnOff;
+            pnl_Loading.Visible = OnOff;
+            pnl_Loading.Refresh();
         }
     }
 }

@@ -39,6 +39,7 @@ namespace ReportProgram
             infoDBConInputBox.Text = mySetting.Info_DBConnection;
             tbx_DisplayDayCount.Text = mySetting.DisplayDayCount.ToString();
             cbb_StartViewIndex.SelectedIndex = mySetting.StartViewIndex;
+            chk_Unit_Display.Checked = mySetting.Unit_Display;
             conString = mySetting.Info_DBConnection;
 
             tbx_SlideShow_Time.Text = string.Format("{0:F3}", mySetting.JobOrder_SlideShow_Time);
@@ -118,6 +119,7 @@ namespace ReportProgram
             mySetting.Info_DBConnection = infoDBConInputBox.Text;
             mySetting.DisplayDayCount = myConvert.StrToIntDef(tbx_DisplayDayCount.Text, 0);
             mySetting.StartViewIndex = cbb_StartViewIndex.SelectedIndex;
+            mySetting.Unit_Display = chk_Unit_Display.Checked;
 
             mySetting.JobOrder_SlideShow_Time = myConvert.StrToDoubleDef(tbx_SlideShow_Time.Text, 0);
             // 작업지시서 파일 리스트

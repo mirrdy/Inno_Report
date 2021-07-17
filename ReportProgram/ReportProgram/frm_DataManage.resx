@@ -160,11 +160,10 @@
   </data>
   <data name="btn_DetailData.Image" type="System.Drawing.Bitmap, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
     <value>
-        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAAAXNSR0IArs4c6QAAAARnQU1BAACxjwv8
-        YQUAAAAJcEhZcwAADsQAAA7EAZUrDhsAAACGSURBVFhH7ZRBCoBADAP7Lh/iQ/yWj9St4KWIOQztIjaQ
-        SweSgLL2FW3De7DfyuSFR7DfytQDekAPUAPS3wkPfBugOFYPSB+wDK/BfruVPoAWKC5FCxSXogWKS9EC
-        xaVogeJStIByHEA5DqAcB1COAyiXT3E2/7nit6n247HS19840zNldgJRfH9GQJymugAAAABJRU5ErkJg
-        gg==
+        iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABGdBTUEAALGPC/xhBQAAAAlwSFlzAAAO
+        xAAADsQBlSsOGwAAAIZJREFUWEftlEEKgEAMA/suH+JD/JaP1K3gpYg5DO0iNpBLB5KAsvYVbcN7sN/K
+        5IVHsN/K1AN6QA9QA9LfCQ98G6A4Vg9IH7AMr8F+u5U+gBYoLkULFJeiBYpL0QLFpWiB4lK0gHIcQDkO
+        oBwHUI4DKJdPcTb/ueK3qfbjsdLX3zjTM2V2AlF8f0ZAnKa6AAAAAElFTkSuQmCC
 </value>
   </data>
   <metadata name="Number.UserAddedColumn" type="System.Boolean, mscorlib, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089">

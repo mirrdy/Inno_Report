@@ -29,12 +29,13 @@
         private void InitializeComponent()
         {
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(frm_DataManage));
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle1 = new System.Windows.Forms.DataGridViewCellStyle();
-            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle2 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle3 = new System.Windows.Forms.DataGridViewCellStyle();
+            System.Windows.Forms.DataGridViewCellStyle dataGridViewCellStyle4 = new System.Windows.Forms.DataGridViewCellStyle();
             this.btn_DeleteData = new System.Windows.Forms.Button();
             this.btn_SelectData = new System.Windows.Forms.Button();
             this.btn_ExportToExcel = new System.Windows.Forms.Button();
             this.pnl_Left = new System.Windows.Forms.Panel();
+            this.btn_DetailData = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.selectedDataView = new System.Windows.Forms.DataGridView();
             this.Number = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -47,7 +48,6 @@
             this.Total_result = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
             this.sdlg_Excel = new System.Windows.Forms.SaveFileDialog();
-            this.btn_DetailData = new System.Windows.Forms.Button();
             this.pnl_Left.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.selectedDataView)).BeginInit();
@@ -111,6 +111,21 @@
             this.pnl_Left.Size = new System.Drawing.Size(167, 935);
             this.pnl_Left.TabIndex = 15;
             // 
+            // btn_DetailData
+            // 
+            this.btn_DetailData.BackColor = System.Drawing.SystemColors.ControlLightLight;
+            this.btn_DetailData.Font = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
+            this.btn_DetailData.Image = ((System.Drawing.Image)(resources.GetObject("btn_DetailData.Image")));
+            this.btn_DetailData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_DetailData.Location = new System.Drawing.Point(3, 181);
+            this.btn_DetailData.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btn_DetailData.Name = "btn_DetailData";
+            this.btn_DetailData.Size = new System.Drawing.Size(162, 51);
+            this.btn_DetailData.TabIndex = 3;
+            this.btn_DetailData.Text = "       데이터 상세보기";
+            this.btn_DetailData.UseVisualStyleBackColor = false;
+            this.btn_DetailData.Click += new System.EventHandler(this.btn_DetailData_Click);
+            // 
             // panel1
             // 
             this.panel1.Controls.Add(this.selectedDataView);
@@ -125,18 +140,18 @@
             // 
             this.selectedDataView.AllowUserToAddRows = false;
             this.selectedDataView.AllowUserToDeleteRows = false;
-            dataGridViewCellStyle1.BackColor = System.Drawing.SystemColors.Info;
-            this.selectedDataView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle1;
+            dataGridViewCellStyle3.BackColor = System.Drawing.SystemColors.Info;
+            this.selectedDataView.AlternatingRowsDefaultCellStyle = dataGridViewCellStyle3;
             this.selectedDataView.BorderStyle = System.Windows.Forms.BorderStyle.None;
             this.selectedDataView.ColumnHeadersBorderStyle = System.Windows.Forms.DataGridViewHeaderBorderStyle.Single;
-            dataGridViewCellStyle2.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
-            dataGridViewCellStyle2.BackColor = System.Drawing.Color.Moccasin;
-            dataGridViewCellStyle2.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            dataGridViewCellStyle2.ForeColor = System.Drawing.SystemColors.WindowText;
-            dataGridViewCellStyle2.SelectionBackColor = System.Drawing.SystemColors.Highlight;
-            dataGridViewCellStyle2.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
-            dataGridViewCellStyle2.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
-            this.selectedDataView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle2;
+            dataGridViewCellStyle4.Alignment = System.Windows.Forms.DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle4.BackColor = System.Drawing.Color.Moccasin;
+            dataGridViewCellStyle4.Font = new System.Drawing.Font("맑은 고딕", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            dataGridViewCellStyle4.ForeColor = System.Drawing.SystemColors.WindowText;
+            dataGridViewCellStyle4.SelectionBackColor = System.Drawing.SystemColors.Highlight;
+            dataGridViewCellStyle4.SelectionForeColor = System.Drawing.SystemColors.HighlightText;
+            dataGridViewCellStyle4.WrapMode = System.Windows.Forms.DataGridViewTriState.True;
+            this.selectedDataView.ColumnHeadersDefaultCellStyle = dataGridViewCellStyle4;
             this.selectedDataView.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.selectedDataView.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Number,
@@ -223,21 +238,6 @@
             this.panel2.Size = new System.Drawing.Size(1090, 3);
             this.panel2.TabIndex = 17;
             // 
-            // btn_DetailData
-            // 
-            this.btn_DetailData.BackColor = System.Drawing.SystemColors.ControlLightLight;
-            this.btn_DetailData.Font = new System.Drawing.Font("맑은 고딕", 11F, System.Drawing.FontStyle.Bold);
-            this.btn_DetailData.Image = ((System.Drawing.Image)(resources.GetObject("btn_DetailData.Image")));
-            this.btn_DetailData.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_DetailData.Location = new System.Drawing.Point(3, 181);
-            this.btn_DetailData.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btn_DetailData.Name = "btn_DetailData";
-            this.btn_DetailData.Size = new System.Drawing.Size(162, 51);
-            this.btn_DetailData.TabIndex = 3;
-            this.btn_DetailData.Text = "       데이터 상세보기";
-            this.btn_DetailData.UseVisualStyleBackColor = false;
-            this.btn_DetailData.Click += new System.EventHandler(this.btn_DetailData_Click);
-            // 
             // frm_DataManage
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -250,6 +250,7 @@
             this.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
             this.Name = "frm_DataManage";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterParent;
+            this.Load += new System.EventHandler(this.frm_DataManage_Load);
             this.pnl_Left.ResumeLayout(false);
             this.panel1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.selectedDataView)).EndInit();

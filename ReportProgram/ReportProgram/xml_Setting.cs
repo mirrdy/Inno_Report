@@ -28,6 +28,7 @@ namespace ReportProgram
         public int DisplayDayCount;
 
         public int StartViewIndex;
+        public bool Unit_Display;
 
         public double JobOrder_SlideShow_Time;
         public string[] JobOrder_File = new string[100];
@@ -59,8 +60,9 @@ namespace ReportProgram
             DisplayDayCount = 0;
 
             StartViewIndex = 0;
+            Unit_Display = false;
 
-            for(int i = 0; i < JobOrder_File.Length; i++)
+            for (int i = 0; i < JobOrder_File.Length; i++)
             {
                 JobOrder_File[i] = "";
             }
@@ -107,12 +109,14 @@ namespace ReportProgram
             XmlElement el_Info_DBConnection = doc.CreateElement("Info_DBConnection");
             XmlElement el_DisplayDayCount = doc.CreateElement("DisplayDayCount");
             XmlElement el_StartViewIndex = doc.CreateElement("StartViewIndex");
+            XmlElement el_Unit_Display = doc.CreateElement("Unit_Display");
 
             // 각각의 요소 내용으로 그에 맞는 객체 속성값을 넣음
             el_Target_Count.InnerText = Target_Count.ToString();
             el_Info_DBConnection.InnerText = Info_DBConnection;
             el_DisplayDayCount.InnerText = DisplayDayCount.ToString();
             el_StartViewIndex.InnerText = StartViewIndex.ToString();
+            el_Unit_Display.InnerText = Unit_Display.ToString();
 
             // 각각 요소들을 xml 최상위부모 밑으로 넣음
             xmlSetting.AppendChild(el_Target_Count);
@@ -210,6 +214,7 @@ namespace ReportProgram
             XmlNode node_Info_DBConnection = doc.SelectSingleNode("//Setting/Info_DBConnection");
             XmlNode node_DisplayDayCount = doc.SelectSingleNode("//Setting/DisplayDayCount");
             XmlNode node_StartViewIndex = doc.SelectSingleNode("//Setting/StartViewIndex");
+            XmlNode node_Unit_Display = doc.SelectSingleNode("//Setting/Unit_Display");
 
             if (node_Target_Count != null)
             {
@@ -226,6 +231,10 @@ namespace ReportProgram
             if (node_StartViewIndex != null)
             {
                 StartViewIndex = myConvert.StrToIntDef(node_StartViewIndex.InnerText, 0);
+            }
+            if (node_Unit_Display != null)
+            {
+                Unit_Display = myConvert.StrToBoolDef(node_Unit_Display.InnerText, false);
             }
 
             XmlNode node_JobOrder_SlideShow_Time = doc.SelectSingleNode("//Setting/JobOrder_SlideShow_Time");
