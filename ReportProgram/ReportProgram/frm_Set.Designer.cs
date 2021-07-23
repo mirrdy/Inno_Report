@@ -42,7 +42,6 @@
             this.label4 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
-            this.btn_ChoiceLogPath = new System.Windows.Forms.Button();
             this.cbb_ModelList = new System.Windows.Forms.ComboBox();
             this.label16 = new System.Windows.Forms.Label();
             this.chklst_HeaderVisible = new System.Windows.Forms.CheckedListBox();
@@ -76,6 +75,8 @@
             this.Column2 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Column3 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.fdbr_LogPath = new System.Windows.Forms.FolderBrowserDialog();
+            this.chk_Unit_Display = new System.Windows.Forms.CheckBox();
+            this.btn_ChoiceLogPath = new System.Windows.Forms.Button();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgv_JobOrder_File_List)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -157,6 +158,7 @@
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.btn_ChoiceLogPath);
+            this.groupBox1.Controls.Add(this.chk_Unit_Display);
             this.groupBox1.Controls.Add(this.cbb_ModelList);
             this.groupBox1.Controls.Add(this.label16);
             this.groupBox1.Controls.Add(this.chklst_HeaderVisible);
@@ -187,22 +189,6 @@
             this.groupBox1.TabIndex = 17;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "프로그램 옵션 설정";
-            // 
-            // btn_ChoiceLogPath
-            // 
-            this.btn_ChoiceLogPath.BackColor = System.Drawing.SystemColors.ButtonFace;
-            this.btn_ChoiceLogPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.btn_ChoiceLogPath.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
-            this.btn_ChoiceLogPath.Image = ((System.Drawing.Image)(resources.GetObject("btn_ChoiceLogPath.Image")));
-            this.btn_ChoiceLogPath.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
-            this.btn_ChoiceLogPath.Location = new System.Drawing.Point(523, 354);
-            this.btn_ChoiceLogPath.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
-            this.btn_ChoiceLogPath.Name = "btn_ChoiceLogPath";
-            this.btn_ChoiceLogPath.Size = new System.Drawing.Size(224, 38);
-            this.btn_ChoiceLogPath.TabIndex = 50;
-            this.btn_ChoiceLogPath.Text = "적 용";
-            this.btn_ChoiceLogPath.UseVisualStyleBackColor = false;
-            this.btn_ChoiceLogPath.Click += new System.EventHandler(this.btn_ChoiceLogPath_Click);
             // 
             // cbb_ModelList
             // 
@@ -544,6 +530,33 @@
             this.Column3.Name = "Column3";
             this.Column3.Width = 140;
             // 
+            // chk_Unit_Display
+            // 
+            this.chk_Unit_Display.AutoSize = true;
+            this.chk_Unit_Display.Font = new System.Drawing.Font("맑은 고딕", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.chk_Unit_Display.Location = new System.Drawing.Point(23, 286);
+            this.chk_Unit_Display.Name = "chk_Unit_Display";
+            this.chk_Unit_Display.Size = new System.Drawing.Size(201, 21);
+            this.chk_Unit_Display.TabIndex = 49;
+            this.chk_Unit_Display.Text = "Data Manage 단위 자동 표기";
+            this.chk_Unit_Display.UseVisualStyleBackColor = true;
+            // 
+            // btn_ChoiceLogPath
+            // 
+            this.btn_ChoiceLogPath.BackColor = System.Drawing.SystemColors.ButtonFace;
+            this.btn_ChoiceLogPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.btn_ChoiceLogPath.Font = new System.Drawing.Font("맑은 고딕", 12F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(129)));
+            this.btn_ChoiceLogPath.Image = ((System.Drawing.Image)(resources.GetObject("btn_ChoiceLogPath.Image")));
+            this.btn_ChoiceLogPath.ImageAlign = System.Drawing.ContentAlignment.MiddleLeft;
+            this.btn_ChoiceLogPath.Location = new System.Drawing.Point(523, 354);
+            this.btn_ChoiceLogPath.Margin = new System.Windows.Forms.Padding(3, 4, 3, 4);
+            this.btn_ChoiceLogPath.Name = "btn_ChoiceLogPath";
+            this.btn_ChoiceLogPath.Size = new System.Drawing.Size(224, 38);
+            this.btn_ChoiceLogPath.TabIndex = 50;
+            this.btn_ChoiceLogPath.Text = "적 용";
+            this.btn_ChoiceLogPath.UseVisualStyleBackColor = false;
+            this.btn_ChoiceLogPath.Click += new System.EventHandler(this.btn_ChoiceLogPath_Click);
+            // 
             // frm_Set
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
@@ -616,6 +629,7 @@
         private System.Windows.Forms.ComboBox cbb_ModelList;
         private System.Windows.Forms.Label label16;
         private System.Windows.Forms.CheckedListBox chklst_HeaderVisible;
+        private System.Windows.Forms.CheckBox chk_Unit_Display;
         private System.Windows.Forms.Button btn_ChoiceLogPath;
     }
 }

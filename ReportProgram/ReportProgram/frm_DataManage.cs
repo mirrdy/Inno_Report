@@ -109,7 +109,12 @@ namespace ReportProgram
                                 string[] parsedDetail = parsedStr.Split(',');
                                 foreach(string detailStr in parsedDetail)
                                 {
-                                    readRow.Add(detailStr);
+                                    readRow.Add(detailStr);                                    
+                                    if(parsedDetail.Length <= 1 && mySetting.Unit_Display == true)
+                                    {
+                                        readRow.Add("-");
+                                        readRow.Add("-");
+                                    }
                                 }
                             }
                         }
@@ -126,6 +131,11 @@ namespace ReportProgram
                     if (ModelViewList[i] == false && selectedDataView.Columns.Count > ((i * 3) + 2 + StartDataCol))
                     {
                         selectedDataView.Columns[(i * 3) + StartDataCol].Visible = false;
+                        if(mySetting.Unit_Display == true)
+                        {
+                            selectedDataView.Columns[(i * 3) + 1 + StartDataCol].Visible = false;
+                            selectedDataView.Columns[(i * 3) + 2 + StartDataCol].Visible = false;
+                        }
                     }
                 }
             }
@@ -220,6 +230,11 @@ namespace ReportProgram
                             else
                             {
                                 parsingData.Add(dataHeader[i]);
+                                if(mySetting.Unit_Display == true)
+                                {
+                                    parsingData.Add("단위");
+                                    parsingData.Add("결과");
+                                }
                             }
                         }
                     }
@@ -706,6 +721,17 @@ namespace ReportProgram
         private void frm_DataManage_Load(object sender, EventArgs e)
         {
             selectedDataView.DoubleBuffered(true);
+        }
+
+        private void button1_Click(object sender, EventArgs e)
+        {
+            Stopwatch tmpTime = new Stopwatch();
+            tmpTime.Start();
+            for (int i = 0; i < 200; i++)
+            {
+                selectedDataView.Columns.Add("Col" + i.ToString(), "NAME" + i.ToString());
+            }
+            MessageBox.Show(tmpTime.ElapsedMilliseconds.ToString());
         }
     }
     public static class ExtensionMethods

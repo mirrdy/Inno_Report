@@ -140,7 +140,6 @@ namespace InnoDB_DLL
             return R_Code;
         }
 
-
         public List<string> Get_ModelList()
         {
             List<string> ModelList = new List<string>();
@@ -170,6 +169,63 @@ namespace InnoDB_DLL
 
             return ModelList;
         }
+
+        public string Get_Model_Header(string ModelName)
+        {
+            string tmpHeader = "";
+            string queryString = "select * from " + TableName_Model + " where='" + ModelName + "'";
+
+            OdbcCommand command = new OdbcCommand(queryString);
+            try
+            {
+                ErrorMessage = "";
+                using (OdbcConnection connection = new OdbcConnection(DSN_Name))
+                {
+                    command.Connection = connection;
+                    connection.Open();
+                    OdbcDataReader dr = command.ExecuteReader();
+
+                    while (dr.Read())
+                    {
+                        tmpHeader = dr["data_header"].ToString();
+                        break;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+            }
+
+            return tmpHeader;
+        }
+
+        public ErrorCode Update_Model_Header(string ModelName, string DataHeader)
+        {
+            ErrorCode R_Code = ErrorCode.ER_Etc;
+            string queryString = "update " + TableName_Model + " set data_header = '" + DataHeader + "' WHERE name = '" + ModelName + "'";
+
+            OdbcCommand command = new OdbcCommand(queryString);
+            try
+            {
+                ErrorMessage = "";
+                using (OdbcConnection connection = new OdbcConnection(DSN_Name))
+                {
+                    command.Connection = connection;
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                    R_Code = ErrorCode.Suecces;
+                }
+            }
+            catch (Exception ex)
+            {
+                ErrorMessage = ex.Message;
+                R_Code = ErrorCode.ER_Add_TestData;
+            }
+
+            return R_Code;
+        }
+
         private ErrorCode Check_Table(DateTime date)
         {
             ErrorCode R_Code = ErrorCode.ER_Etc;
