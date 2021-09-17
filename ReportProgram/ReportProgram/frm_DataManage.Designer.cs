@@ -35,6 +35,7 @@
             this.btn_SelectData = new System.Windows.Forms.Button();
             this.btn_ExportToExcel = new System.Windows.Forms.Button();
             this.pnl_Left = new System.Windows.Forms.Panel();
+            this.button1 = new System.Windows.Forms.Button();
             this.btn_DetailData = new System.Windows.Forms.Button();
             this.panel1 = new System.Windows.Forms.Panel();
             this.selectedDataView = new System.Windows.Forms.DataGridView();
@@ -48,7 +49,6 @@
             this.Total_result = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.panel2 = new System.Windows.Forms.Panel();
             this.sdlg_Excel = new System.Windows.Forms.SaveFileDialog();
-            this.button1 = new System.Windows.Forms.Button();
             this.pnl_Left.SuspendLayout();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.selectedDataView)).BeginInit();
@@ -112,6 +112,17 @@
             this.pnl_Left.Name = "pnl_Left";
             this.pnl_Left.Size = new System.Drawing.Size(167, 935);
             this.pnl_Left.TabIndex = 15;
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(68, 376);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 4;
+            this.button1.Text = "button1";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Visible = false;
+            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // btn_DetailData
             // 
@@ -239,16 +250,6 @@
             this.panel2.Name = "panel2";
             this.panel2.Size = new System.Drawing.Size(1090, 3);
             this.panel2.TabIndex = 17;
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(68, 376);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 4;
-            this.button1.Text = "button1";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
             // 
             // frm_DataManage
             // 

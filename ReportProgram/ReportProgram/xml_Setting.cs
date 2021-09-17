@@ -123,6 +123,7 @@ namespace ReportProgram
             xmlSetting.AppendChild(el_Info_DBConnection);
             xmlSetting.AppendChild(el_DisplayDayCount);
             xmlSetting.AppendChild(el_StartViewIndex);
+            xmlSetting.AppendChild(el_Unit_Display);
 
             XmlElement el_JobOrder_SlideShow_Time = doc.CreateElement("JobOrder_SlideShow_Time");
             el_JobOrder_SlideShow_Time.InnerText = JobOrder_SlideShow_Time.ToString();

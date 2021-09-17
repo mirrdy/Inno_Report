@@ -216,7 +216,7 @@
   <HeaderDisplay5>True</HeaderDisplay5>
   <HeaderWidth5>100</HeaderWidth5>
   <HeaderName5>End_time</HeaderName5>
-  <HeaderDisplay6>False</HeaderDisplay6>
+  <HeaderDisplay6>True</HeaderDisplay6>
   <HeaderWidth6>70</HeaderWidth6>
   <HeaderName6>Serial_number</HeaderName6>
   <HeaderDisplay7>True</HeaderDisplay7>
@@ -226,4 +226,6 @@
   <HeaderWidth8>100</HeaderWidth8>
   <HeaderName8>Total_result</HeaderName8>
   <LogPath>D:\LX2_PTM28_Performance_Tester_Report</LogPath>
+  <ModelCount>1</ModelCount>
+  <Model_Header_View1>AB1;True;True;True;True;</Model_Header_View1>
 </Setting>

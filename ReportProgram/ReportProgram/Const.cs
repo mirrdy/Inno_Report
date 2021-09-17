@@ -4,6 +4,7 @@ using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
 using System.IO.Ports;
+using System.IO;
 
 /// <summary>
 /// 디파인 클래스
@@ -11,11 +12,11 @@ using System.IO.Ports;
 static class Const
 {
     // Path
-    public const String MAIN_PATH = @"D:\Inno_Report\ReportProgram";
-    public const String SYSTEM_PATH = @"D:\Inno_Report\ReportProgram\System\";
-    public const String SETTING_FILE_PATH = @"D:\Inno_Report\ReportProgram\System\SystemOption.sys";
-    public const String PLAY_FILE_PATH = @"D:\Inno_Report\ReportProgram\System\iconmonstr-arrow-37-72.png";
-    public const String PAUSE_FILE_PATH = @"D:\Inno_Report\ReportProgram\System\iconmonstr-media-control-49-72.png";
+    public static String MAIN_PATH = System.IO.Directory.GetCurrentDirectory();
+    public static String SYSTEM_PATH = MAIN_PATH + @"\System";
+    public static String SETTING_FILE_PATH = SYSTEM_PATH + @"\SystemOption.sys";
+    public static String PLAY_FILE_PATH = SYSTEM_PATH + @"\iconmonstr-arrow-37-72.png";
+    public static String PAUSE_FILE_PATH = SYSTEM_PATH + @"\iconmonstr-media-control-49-72.png";
 
     // Form Index
     public const int FORM_MONITOR = 0;
