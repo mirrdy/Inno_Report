@@ -12,7 +12,7 @@ using System.IO;
 static class Const
 {
     // Path
-    public static String MAIN_PATH = System.IO.Directory.GetCurrentDirectory();
+    public static String MAIN_PATH = System.Windows.Forms.Application.StartupPath;
     public static String SYSTEM_PATH = MAIN_PATH + @"\System";
     public static String SETTING_FILE_PATH = SYSTEM_PATH + @"\SystemOption.sys";
     public static String PLAY_FILE_PATH = SYSTEM_PATH + @"\iconmonstr-arrow-37-72.png";
